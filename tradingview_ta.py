@@ -1,3 +1,7 @@
+# Tradingview Technical Analysis Scraper
+# Author: deathlyface (https://github.com/deathlyface)
+# Licence: MIT
+
 from selenium import webdriver
 from time import sleep
 
