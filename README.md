@@ -1,4 +1,4 @@
-# python-tradingview-ta
+# python-tradingview-ta [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
  A python module to scrape tradingview's technical analysis.
  
 ## Features
@@ -27,14 +27,18 @@ import tradingview_ta
 ```python
 tradingview_ta.set_driver("WEBDRIVER NAME")
 ```
- Available webdriver: Chrome, Firefox, Safari, Edge
+ Available webdriver: Chrome, Firefox, Safari, Edge. 
  See selenium's [documentation](https://www.selenium.dev/selenium/docs/api/py/#drivers) for webdriver installation.
 
 #### Get analysis
 ```python
 analysis = tradingview_ta.get_analysis("PAIR/TICKER/SYMBOL/WHATEVER YOU WANT TO CALL IT", "INTERVAL")
 ```
- Pair/Ticker/Symbol Example: btcusdt, googl, aapl
+ Pair/Ticker/Symbol example: "btcusdt", "googl", "aapl", etc. 
+ <br>
+ You may use the exchanger's name too, for example: "binance:btcusdt" or "nasdaq:aapl"
+ <br>
+ <br>
  Available interval:
   - "1m" for 1 minute.
   - "5m" for 5 minutes.
@@ -49,3 +53,9 @@ analysis = tradingview_ta.get_analysis("PAIR/TICKER/SYMBOL/WHATEVER YOU WANT TO 
   - The second index (int) shows the number/count of Sell analysis
   - The third index (int) shows the number/count of Neutral analysis
   - The fourth index (int) shows the number/count of Buy analysis
+
+## Contributing
+ You can fork this repository or submit a pull request. Any pull request (documentation, bug fix, features, etc) are welcomed.
+ 
+## License
+ Please see the LICENSE file.
