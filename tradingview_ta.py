@@ -86,7 +86,7 @@ def get_analysis(pair, interval):
     interval = interval.lower()
 
     #Open tradingview's site
-    driver.get("https://s.tradingview.com/embed-widget/technical-analysis/?locale=en#%7B%22interval%22%3A%22{}%22%2C%22width%22%3A%22100%25%22%2C%22isTransparent%22%3Afalse%2C%22height%22%3A%22100%25%22%2C%22symbol%22%3A%22BINANCE%3A{}%22%2C%22showIntervalTabs%22%3Atrue%2C%22colorTheme%22%3A%22dark%22%2C%22utm_medium%22%3A%22widget_new%22%2C%22utm_campaign%22%3A%22technical-analysis%22%7D".format(interval, pair))
+    driver.get("https://s.tradingview.com/embed-widget/technical-analysis/?locale=en#%7B%22interval%22%3A%22{}%22%2C%22width%22%3A%22100%25%22%2C%22isTransparent%22%3Afalse%2C%22height%22%3A%22100%25%22%2C%22symbol%22%3A%22{}%22%2C%22showIntervalTabs%22%3Atrue%2C%22colorTheme%22%3A%22dark%22%2C%22utm_medium%22%3A%22widget_new%22%2C%22utm_campaign%22%3A%22technical-analysis%22%7D".format(interval, pair))
 
     #Wait for site to load
     while len(driver.find_elements_by_class_name("speedometerSignal-pyzN--tL")) == 0:
@@ -99,13 +99,13 @@ def get_analysis(pair, interval):
     #Counters
     counter_elements = driver.find_elements_by_class_name("counterNumber-3l14ys0C")
 
-    #Buy
+    #Sell
     analysis.append(int(counter_elements[0].get_attribute('innerHTML')))
 
     #Neutral
     analysis.append(int(counter_elements[1].get_attribute('innerHTML')))
     
-    #Sell
+    #Buy
     analysis.append(int(counter_elements[2].get_attribute('innerHTML')))
     
     driver.quit()
