@@ -8,11 +8,18 @@
  - Python
  - [Selenium](https://www.selenium.dev/selenium/docs/api/py/#installing)
  - [Webdriver](https://www.selenium.dev/selenium/docs/api/py/#drivers)
-## Quickstart
+## Quickstart Example
 ```python
-import tradingview_ta
+from tradingview_ta import ta_handler
 
-analysis = tradingview_ta("xlmbtc", "1m")
+xlmbtc = ta_handler()
+xlmbtc.pair = "xlmbtc"
+xlmbtc.interval = "1m"
+#xlmbtc.driver = "chrome"
+#xlmbtc.headless = True
+
+xlmbtc.start_driver()
+analysis = xlmbtc.get_analysis()
 
 print(analysis)
 #Example output: ["Buy", 3, 10, 17]
@@ -20,25 +27,27 @@ print(analysis)
 ## Usage
 #### Import module
 ```python
-import tradingview_ta
+from tradingview_ta import ta_handler
 ```
 
-#### Set webdriver (optional, default: chrome)
+#### Create an instance
 ```python
-tradingview_ta.set_driver("WEBDRIVER NAME")
+ta_instance = ta_handler()
 ```
- Available webdriver: Chrome, Firefox, Safari, Edge. 
- See selenium's [documentation](https://www.selenium.dev/selenium/docs/api/py/#drivers) for webdriver installation.
-
-#### Get analysis
+ Does not need to be ```ta_instance```. Name it whatever you want!
+ 
+#### Set pair/ticker/symbol
 ```python
-analysis = tradingview_ta.get_analysis("PAIR/TICKER/SYMBOL/WHATEVER YOU WANT TO CALL IT", "INTERVAL")
+ta_instance.pair = "PAIR NAME"
 ```
  Pair/Ticker/Symbol example: "btcusdt", "googl", "aapl", etc. 
  <br>
  You may use the exchanger's name too, for example: "binance:btcusdt" or "nasdaq:aapl"
- <br>
- <br>
+ 
+#### Set interval (default: 1 minute)
+```python
+ta_instance.interval = "INTERVAL"
+```
  Available interval:
   - "1m" for 1 minute.
   - "5m" for 5 minutes.
@@ -47,8 +56,30 @@ analysis = tradingview_ta.get_analysis("PAIR/TICKER/SYMBOL/WHATEVER YOU WANT TO 
   - "4h" for 4 hours.
   - etc.
  
- #### List Details
-  The ```get_analysis()``` function will return a list, containing the following value.
+#### Set webdriver (default: chrome)
+```python
+ta_instance.driver = "WEBDRIVER NAME"
+```
+ Available webdriver: Chrome, Firefox, Safari, Edge. 
+ See selenium's [documentation](https://www.selenium.dev/selenium/docs/api/py/#drivers) for webdriver installation.
+ 
+#### Set headless (default: True)
+```python
+ta_instance.headless = True/False
+```
+ Headless means no GUI, so no browser tab will be opened.
+ 
+#### Start webdriver
+```python
+ta_instance.start_driver()
+```
+ Start the previously setted up webdriver.
+
+#### Get analysis
+```python
+analysis = ta_instance.get_analysis()
+```
+The ```get_analysis()``` function will return a list, containing the following value.
   - The first index (string) shows the recommendation from TradingView, the value can contain "Buy", "Strong Buy", "Neutral", "Sell", or "Strong Sell".
   - The second index (int) shows the number/count of Sell analysis
   - The third index (int) shows the number/count of Neutral analysis
