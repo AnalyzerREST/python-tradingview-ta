@@ -8,14 +8,12 @@ from time import sleep
 class ta_handler:
     """ ta_handler class
     Create an instance of this class to get TradingView's technical analysis.
-
     Values:
         pair (string): Pair name, not case-sensitive (ex: "btcusd").
         interval (string): Interval rate, not case-sensitive (default: "1m" for 1 minute).
         str_driver (string): Webdriver name, not case-sensitive (default: "chrome").
         headless (bool): Use headless browser for chrome and firefox (default: True).
         last_analysis (list): return the last analysis.
-
     Functions:
         start_driver(): Start the webdriver.
         get_analysis(): Return a list of analysis.
@@ -31,7 +29,6 @@ class ta_handler:
     #Set webdriver
     def start_driver(self):
         """ start_driver Function
-
         This function will set up a webdriver.
     
         Returns:
@@ -70,7 +67,6 @@ class ta_handler:
     #Get analysis
     def get_analysis(self):
         """ get_analysis Function
-
         This function will return a list containing recommendation (buy/sell) and counters (number of analysis of sell, neutral, and buy).
     
         Returns:
@@ -110,19 +106,3 @@ class ta_handler:
 
         self.last_analysis = analysis
         return analysis
-    
-
-if __name__ == "__main__":
-    btcusd = ta_handler()
-    
-    btcusd.pair = "btcusd"
-    btcusd.interval = "1m"
-    btcusd.driver = "chrome"
-    btcusd.headless = True
-
-    btcusd.start_driver()
-    analysis = btcusd.get_analysis()
-    print("Recommendation: {}".format(analysis[0]))
-    print("Sell: {}".format(analysis[1]))
-    print("Neutral: {}".format(analysis[2]))
-    print("Buy: {}".format(analysis[3]))
