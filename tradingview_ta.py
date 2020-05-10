@@ -5,116 +5,123 @@
 from selenium import webdriver
 from time import sleep
 
-# YOU MAY CHANGE THIS #
-delay = 0.1
-driver = None
-# END OF VARIABLE DECLARATION #
+class ta_handler:
+    """ ta_handler class
+    Create an instance of this class to get TradingView's technical analysis.
 
-def set_driver(str_driver):
-    """ set_driver Function
+    Values:
+        pair (string): Pair name, not case-sensitive (ex: "btcusd").
+        interval (string): Interval rate, not case-sensitive (default: "1m" for 1 minute).
+        str_driver (string): Webdriver name, not case-sensitive (default: "chrome").
+        headless (bool): Use headless browser for chrome and firefox (default: True).
+        last_analysis (list): return the last analysis.
 
-    This function will set the webdriver.
-
-    Default webdriver:
-    If you have not use this set_driver function, the following webdriver will be used:
-        chrome (Chrome webdriver is needed, https://sites.google.com/a/chromium.org/chromedriver/home).
-
-    Webdriver available:
-        chrome
-        edge
-        firefox
-        safari
-        
-        Please see Selenium's documentation for more details.
-        https://www.selenium.dev/selenium/docs/api/py/#drivers
-
-    Parameters:
-        str_driver (string): Webdriver name, not case-sensitive (ex: chrome).
-
-    Returns:
-        boolean: True if success, False if fail.
-        
+    Functions:
+        start_driver(): Start the webdriver.
+        get_analysis(): Return a list of analysis.
     """
-    #Globalize
-    global driver
-    
-    #Quit the previous driver, if opened
-    if driver != None:
-        driver.quit()
-
-    #Case fix
-    str_driver = str_driver.lower()
+    #Values
+    driver = "chrome"
+    pair = ""
+    interval = "1m"
+    headless = True
+    webdriver = None
+    last_analysis = []
 
     #Set webdriver
-    if str_driver == "chrome":
-        driver = webdriver.Chrome()
-        return True
-    elif str_driver == "edge":
-        driver = webdriver.Edge()
-        return True
-    elif str_driver == "firefox":
-        driver = webdriver.Firefox()
-        return True
-    elif str_driver == "safari":
-        driver = webdriver.Safari()
-        return True
-    else:
-        return False
+    def start_driver(self):
+        """ start_driver Function
 
-def get_analysis(pair, interval):
-    """ get_analysis Function
-
-    This function will return a list containing recommendation (buy/sell) and counters (number of analysis of buy, neutral, and sell).
-    This function will scrape TradingView's website, as they do not offer API.
+        This function will set up a webdriver.
     
-    Parameters:
-        pair (string): Pair name, not case-sensitive (ex: XLMBTC)
-        interval (string): Interval rate, not case-sensitive (ex: 1m for 1 minute)
+        Returns:
+            bool: True if success, False if error.
+        """
+        if self.webdriver != None:
+            self.webdriver.quit()
+        
+        if self.driver == "chrome":
+            if self.headless:
+                from selenium.webdriver.chrome.options import Options
+                options = Options()
+                options.add_argument("--headless")
+                self.webdriver = webdriver.Chrome(options=options)
+            else:
+                self.webdriver = webdriver.Chrome()
+            return True
+        elif self.driver == "edge":
+            self.webdriver = webdriver.Edge()
+            return True
+        elif self.driver == "firefox":
+            if self.headless:
+                from selenium.webdriver.firefox.options import Options
+                options = Options()
+                options.add_argument("--headless")
+                self.webdriver = webdriver.Firefox(options=options)
+            else:
+                self.webdriver = webdriver.Firefox()
+            return True
+        elif self.driver == "safari":
+            self.webdriver = webdriver.Safari()
+            return True
+        else:
+            return False
 
-    Returns:
-        list: Recommendation and counters, format: ["Buy/Sell", buy_count, neutral_count, sell_count](ex: ["Buy", 3, 8, 17])
-    """
-    #Driver check
-    if driver == None:
-        set_driver("chrome")
+    #Get analysis
+    def get_analysis(self):
+        """ get_analysis Function
+
+        This function will return a list containing recommendation (buy/sell) and counters (number of analysis of sell, neutral, and buy).
     
-    #Declare variables
-    analysis = []
+        Returns:
+            list: Recommendation and counters, format: ["Buy/Sell", sell_count, neutral_count, buy_count](ex: ["Buy", 3, 8, 17]).
+            --- OR ---
+            bool: False if error occured.
+        """
 
-    #Case fix
-    pair = pair.upper()
-    interval = interval.lower()
-
-    #Open tradingview's site
-    driver.get("https://s.tradingview.com/embed-widget/technical-analysis/?locale=en#%7B%22interval%22%3A%22{}%22%2C%22width%22%3A%22100%25%22%2C%22isTransparent%22%3Afalse%2C%22height%22%3A%22100%25%22%2C%22symbol%22%3A%22{}%22%2C%22showIntervalTabs%22%3Atrue%2C%22colorTheme%22%3A%22dark%22%2C%22utm_medium%22%3A%22widget_new%22%2C%22utm_campaign%22%3A%22technical-analysis%22%7D".format(interval, pair))
-
-    #Wait for site to load
-    while len(driver.find_elements_by_class_name("speedometerSignal-pyzN--tL")) == 0:
-        sleep(delay)
-
-    #Recommendation
-    recommendation_element = driver.find_element_by_class_name("speedometerSignal-pyzN--tL")
-    analysis.append(recommendation_element.get_attribute('innerHTML'))
-
-    #Counters
-    counter_elements = driver.find_elements_by_class_name("counterNumber-3l14ys0C")
-
-    #Sell
-    analysis.append(int(counter_elements[0].get_attribute('innerHTML')))
-
-    #Neutral
-    analysis.append(int(counter_elements[1].get_attribute('innerHTML')))
+        if self.webdriver == None:
+            return False
     
-    #Buy
-    analysis.append(int(counter_elements[2].get_attribute('innerHTML')))
-    
-    driver.quit()
+        #Declare variable
+        analysis = []
 
-    return analysis
+        #Open tradingview's site
+        self.webdriver.get("https://s.tradingview.com/embed-widget/technical-analysis/?locale=en#%7B%22interval%22%3A%22{}%22%2C%22width%22%3A%22100%25%22%2C%22isTransparent%22%3Afalse%2C%22height%22%3A%22100%25%22%2C%22symbol%22%3A%22{}%22%2C%22showIntervalTabs%22%3Atrue%2C%22colorTheme%22%3A%22dark%22%2C%22utm_medium%22%3A%22widget_new%22%2C%22utm_campaign%22%3A%22technical-analysis%22%7D".format(self.interval, self.pair))
+
+        #Wait for site to load elements
+        while len(self.webdriver.find_elements_by_class_name("speedometerSignal-pyzN--tL")) == 0:
+            sleep(0.1)
+
+        #Recommendation
+        recommendation_element = self.webdriver.find_element_by_class_name("speedometerSignal-pyzN--tL")
+        analysis.append(recommendation_element.get_attribute('innerHTML'))
+
+        #Counters
+        counter_elements = self.webdriver.find_elements_by_class_name("counterNumber-3l14ys0C")
+
+        #Sell
+        analysis.append(int(counter_elements[0].get_attribute('innerHTML')))
+
+        #Neutral
+        analysis.append(int(counter_elements[1].get_attribute('innerHTML')))
+    
+        #Buy
+        analysis.append(int(counter_elements[2].get_attribute('innerHTML')))
+
+        self.last_analysis = analysis
+        return analysis
+    
 
 if __name__ == "__main__":
-    set_driver("chrome")
-    analysis = get_analysis("btcusdt", "1m")
+    btcusd = ta_handler()
+    
+    btcusd.pair = "btcusd"
+    btcusd.interval = "1m"
+    btcusd.driver = "chrome"
+    btcusd.headless = True
+
+    btcusd.start_driver()
+    analysis = btcusd.get_analysis()
     print("Recommendation: {}".format(analysis[0]))
     print("Sell: {}".format(analysis[1]))
     print("Neutral: {}".format(analysis[2]))
