@@ -1,5 +1,7 @@
 # python-tradingview-ta [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
  A python module to scrape tradingview's technical analysis.
+ <br>
+ Author: [deathlyface](https://deathlyface.tech)
  
 ## Features
  Scrape analysis from TradingView, ex: from [XLMBTC](http://s.tradingview.com/embed-widget/technical-analysis/?locale=en#%7B%22interval%22%3A%221m%22%2C%22width%22%3A%22100%25%22%2C%22isTransparent%22%3Afalse%2C%22height%22%3A%22100%25%22%2C%22symbol%22%3A%22BINANCE%3AXLMBTC%22%2C%22showIntervalTabs%22%3Atrue%2C%22colorTheme%22%3A%22dark%22%2C%22utm_medium%22%3A%22widget_new%22%2C%22utm_campaign%22%3A%22technical-analysis%22%7D), to a list. Works by using selenium webdriver to scrape elements from tradingview's technical analysis widget.
@@ -40,11 +42,11 @@ from tradingview_ta import ta_handler
 ```python
 ta_instance = ta_handler()
 ```
- Does not need to be ```ta_instance```. Name it whatever you want!
+ It does not need to be ```ta_instance```. Name it whatever you want!
  
 #### Set pair/ticker/symbol
 ```python
-ta_instance.pair = "PAIR NAME"
+ta_instance.symbol = "SYMBOL NAME"
 ```
  Pair/Ticker/Symbol example: "btcusdt", "googl", "aapl", etc. 
  <br>
@@ -54,13 +56,15 @@ ta_instance.pair = "PAIR NAME"
 ```python
 ta_instance.interval = "INTERVAL"
 ```
- Available interval:
+ Available interval (case-sensitive):
   - "1m" for 1 minute.
   - "5m" for 5 minutes.
   - "15m" for 15 minutes.
   - "1h" for 1 hour.
   - "4h" for 4 hours.
-  - etc.
+  - "1D" for 1 day.
+  - "1W" for 1 week.
+  - "1M" for 1 month.
  
 #### Set webdriver (default: chrome)
 ```python
@@ -90,9 +94,12 @@ The ```get_analysis()``` function will return a list, containing the following v
   - The second index (int) shows the number/count of Sell analysis
   - The third index (int) shows the number/count of Neutral analysis
   - The fourth index (int) shows the number/count of Buy analysis
+  
+## Warning
+ Trading is a dangerous activity. Do not use tradingview's analysis to trade automatically without your supervision. I am not responsible for any financial loss.
 
 ## Contributing
  You can fork this repository or submit a pull request. Any pull request (documentation, bug fix, features, etc) are welcomed.
  
 ## License
- Please see the LICENSE file.
+ This package or software is available for free to all. You may share, edit, or do whatever you want. For more information please see the LICENSE file.
