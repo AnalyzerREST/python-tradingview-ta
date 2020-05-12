@@ -1,1 +1,1 @@
-from .main import ta_handler
+from .main import TA_Handler

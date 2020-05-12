@@ -21,9 +21,9 @@
 
 ## Quickstart Example
 ```python
-from tradingview_ta import ta_handler
+from tradingview_ta import TA_Handler
 
-xlmbtc = ta_handler()
+xlmbtc = TA_Handler()
 xlmbtc.pair = "xlmbtc"
 xlmbtc.interval = "1m"
 #xlmbtc.driver = "chrome"
@@ -38,12 +38,12 @@ print(analysis)
 ## Usage
 #### Import module
 ```python
-from tradingview_ta import ta_handler
+from tradingview_ta import TA_Handler
 ```
 
 #### Create an instance
 ```python
-ta_instance = ta_handler()
+ta_instance = TA_Handler()
 ```
  It does not need to be ```ta_instance```. Name it whatever you want!
  
