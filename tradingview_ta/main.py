@@ -4,6 +4,7 @@
 
 from selenium import webdriver
 from time import sleep
+import os
 
 class TA_Handler:
     """ TA_Handler class
@@ -34,6 +35,8 @@ class TA_Handler:
         Returns:
             bool: True if success, False if error.
         """
+        self.driver = self.driver.lower()
+        
         if self.webdriver != None:
             self.webdriver.quit()
         
@@ -60,6 +63,15 @@ class TA_Handler:
             return True
         elif self.driver == "safari":
             self.webdriver = webdriver.Safari()
+            return True
+        elif self.driver == "heroku":
+            from selenium.webdriver.chrome.options import Options
+            options = Options()
+            options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+            options.add_argument("--headless")
+            options.add_argument("--disable-dev-shm-usage")
+            options.add_argument("--no-sandbox")
+            self.webdriver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options)
             return True
         else:
             return False

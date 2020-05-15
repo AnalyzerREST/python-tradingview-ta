@@ -45,7 +45,7 @@ from tradingview_ta import TA_Handler
 ```python
 ta_instance = TA_Handler()
 ```
- It does not need to be ```ta_instance```. Name it whatever you want!
+ It does not have to be ```ta_instance```. Name it whatever you want!
  
 #### Set pair/ticker/symbol
 ```python
@@ -73,7 +73,12 @@ ta_instance.interval = "INTERVAL"
 ```python
 ta_instance.driver = "WEBDRIVER NAME"
 ```
- Available webdriver: Chrome, Firefox, Safari, Edge. 
+ Available webdriver (case-insensitive): 
+ - Chrome
+ - Firefox
+ - Safari
+ - Edge
+ - Heroku (Unofficial, please follow EXACTLY this youtube [video](https://youtu.be/Ven-pqwk3ec?t=190) for set-up tutorial)
  See selenium's [documentation](https://www.selenium.dev/selenium/docs/api/py/#drivers) for webdriver installation.
  
 #### Set headless (default: True)
@@ -92,11 +97,12 @@ ta_instance.start_driver()
 ```python
 analysis = ta_instance.get_analysis()
 ```
-The ```get_analysis()``` function will return a list, containing the following value.
+ The ```get_analysis()``` function will return a list, containing the following value.
   - The first index (string) shows the recommendation from TradingView, the value can contain "Buy", "Strong Buy", "Neutral", "Sell", or "Strong Sell".
   - The second index (int) shows the number/count of Sell analysis
   - The third index (int) shows the number/count of Neutral analysis
   - The fourth index (int) shows the number/count of Buy analysis
+ See the picture in the upper part of this page for visualisation.
   
 ## Warning
  Trading is a dangerous activity. Do not use tradingview's analysis to trade automatically without your supervision. I am not responsible for any financial loss.
