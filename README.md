@@ -79,6 +79,7 @@ ta_instance.driver = "WEBDRIVER NAME"
  - Safari
  - Edge
  - Heroku (Unofficial, please follow EXACTLY this youtube [video](https://youtu.be/Ven-pqwk3ec?t=190) for set-up tutorial)
+ <br>
  See selenium's [documentation](https://www.selenium.dev/selenium/docs/api/py/#drivers) for webdriver installation.
  
 #### Set headless (default: True)
