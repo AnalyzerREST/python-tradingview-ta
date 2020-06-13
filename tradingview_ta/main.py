@@ -40,7 +40,7 @@ class TA_Handler:
         if self.webdriver != None:
             self.webdriver.quit()
         
-        if self.driver == "chrome":
+        if self.driver in ["chrome", "chromedriver"]:
             if self.headless:
                 from selenium.webdriver.chrome.options import Options
                 options = Options()
@@ -49,10 +49,10 @@ class TA_Handler:
             else:
                 self.webdriver = webdriver.Chrome()
             return True
-        elif self.driver == "edge":
+        elif self.driver in ["edge", "microsoft edge"]:
             self.webdriver = webdriver.Edge()
             return True
-        elif self.driver == "firefox":
+        elif self.driver in ["firefox", "mozilla", "mozilla firefox", "geckodriver"]:
             if self.headless:
                 from selenium.webdriver.firefox.options import Options
                 options = Options()
