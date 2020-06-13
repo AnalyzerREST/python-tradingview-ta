@@ -24,7 +24,7 @@
 from tradingview_ta import TA_Handler
 
 xlmbtc = TA_Handler()
-xlmbtc.pair = "xlmbtc"
+xlmbtc.symbol = "xlmbtc"
 xlmbtc.interval = "1m"
 #xlmbtc.driver = "chrome"
 #xlmbtc.headless = True
