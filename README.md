@@ -107,7 +107,7 @@ analysis = ta_instance.get_analysis()
  See the picture in the upper part of this page for visualisation.
  
 ## "Full" documentation
- Please see my blog post [here](https://deathlyface.tech/2020/06/02/tradingview-ta-set-up/) for a more detailed installation and usage.
+ Please see my blog post [here](https://deathlyf.com/2020/06/02/tradingview-ta-set-up/) for a more detailed installation and usage.
   
 ## Warning
  Trading is a dangerous activity. Do not use tradingview's analysis to trade automatically without your supervision. I am not responsible for any financial loss.
