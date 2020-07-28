@@ -1,3 +1,8 @@
+# Tradingview Technical Analysis (tradingview-ta)
+# Author: deathlyface (https://github.com/deathlyface)
+# Rewritten from https://www.tradingview.com/static/bundles/technicals.f2e6e6a51aebb6cd46f8.js
+# License: MIT
+
 class analysis:
     buy = "BUY"
     strong_buy = "STRONG_BUY"
@@ -124,9 +129,9 @@ class compute:
         Returns:
             string: "BUY", "SELL", or "NEUTRAL"
         """
-        if (mom > mom1):
+        if (mom < mom1):
             return analysis.buy
-        elif (mom < mom1):
+        elif (mom > mom1):
             return analysis.sell
         else:
             return analysis.neutral
@@ -210,9 +215,9 @@ class compute:
             return analysis.sell
         elif (value == 0):
             return analysis.neutral
-        elif (value > 0 and e <= .5):
+        elif (value > 0 and value <= .5):
             return analysis.buy
-        elif (value > .5 and e <= 1):
+        elif (value > .5 and value <= 1):
             return analysis.strong_buy
         else:
             return analysis.error
