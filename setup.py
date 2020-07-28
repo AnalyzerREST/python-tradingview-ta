@@ -19,6 +19,6 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-          'selenium',
+          'requests',
     ],
     python_requires='>=3.4')
