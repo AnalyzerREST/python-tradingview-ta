@@ -23,14 +23,14 @@
 from tradingview_ta import TA_Handler
 
 tesla_handler = TA_Handler()
-tesla_handler.symbol = "TSLA"
-tesla_handler.interval = "15m" #15 Minutes
-tesla_handler.exchange = "NASDAQ"
-tesla_handler.screener = "america"
+tesla_handler.Symbol = "TSLA"
+tesla_handler.Interval = "15m" #15 Minutes
+tesla_handler.Exchange = "NASDAQ"
+tesla_handler.Screener = "america"
 
 analysis = tesla_handler.get_analysis()
 
-print(analysis["summary"])
+print(analysis.Summary)
 #Example output: {"RECOMMENDATION": "BUY", "BUY": 7, "NEUTRAL": 6, "SELL": 4}
 ```
 ## Usage
@@ -47,13 +47,13 @@ ta_instance = TA_Handler()
  
 #### Set symbol
 ```python
-ta_instance.symbol = "GOOGL"
+ta_instance.Symbol = "GOOGL"
 ```
  Symbol example: "btcusdt", "googl", "aapl", etc. 
  
 #### Set interval (default: 1 minute)
 ```python
-ta_instance.interval = "1M"
+ta_instance.Interval = "1M"
 ```
  Available interval (case-sensitive):
   - "1m" for 1 minute.
@@ -67,31 +67,42 @@ ta_instance.interval = "1M"
  
 #### Set exchange (default: NASDAQ)
 ```python
-ta_instance.exchange = "NASDAQ"
+ta_instance.Exchange = "NASDAQ"
 ```
-Exchange/exchanger's name. Example: NASDAQ (stock), NYSE (stock), BINANCE (crypto), FX_IDC (forex) etc.
+Exchange/exchanger/data provider's name. Example: NASDAQ (stock), NYSE (stock), BINANCE (crypto), FX_IDC (forex) etc.
 
 #### Set screener (default: america)
 ```python
-ta_instance.screener = "america"
+ta_instance.Screener = "america"
 ```
 Stock: Exchange's country (ex: america, canada, indonesia, etc)
+
 Crypto: "crypto"
+
 CFD: "cfd"
+
 Forex: "forex"
 
 #### Get analysis
 ```python
 analysis = ta_instance.get_analysis()
 ```
- The ```get_analysis()``` function will return a dictionary.
- ##### TODO: Continue
+ The ```get_analysis()``` function will return an instance of analysis_class class. 
+ 
+##### TODO: Continue
+ 
+## Issue
+ Found a bug? Want to ask something? Just create an issue and I'll help you.
   
 ## Warning
- Trading (especially using automated program) is a dangerous activity. Do not use tradingview's analysis to trade automatically without your supervision. I am not responsible for any financial loss.
+ Trading (especially using automated program) is a dangerous activity. Do not use TradingView's analysis to trade automatically without your supervision. I am not responsible for any financial loss.
 
 ## Contributing
  You can fork this repository or submit a pull request. Any pull request (documentation, bug fix, features, etc) are welcomed.
  
 ## License
- This package or software is available for free to all. You may share, edit, or do whatever you want. For more information please see the LICENSE file.
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
