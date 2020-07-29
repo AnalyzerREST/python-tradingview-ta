@@ -3,7 +3,7 @@
  
  Author: [deathlyface](https://deathlyf.com)
  
- ![TradingView](https://githubusercontent.com/deathlyface/python-tradingview-ta/master/images/tradingview.png)
+ ![TradingView](https://raw.githubusercontent.com/deathlyface/python-tradingview-ta/master/images/tradingview.png)
  
 ## Features
 * Fast analysis
