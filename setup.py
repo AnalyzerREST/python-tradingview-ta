@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='tradingview_ta',
-    version='3.0.0',
+    version='3.1.0',
     description="A python module to scrape tradingview's technical analysis.",
     long_description=long_description,
     long_description_content_type="text/markdown",
