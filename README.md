@@ -4,6 +4,9 @@
  Author: [deathlyface](https://deathlyf.com)
  
  ![TradingView](https://raw.githubusercontent.com/deathlyface/python-tradingview-ta/master/images/tradingview.png)
+
+## Note
+ The newest version, v3.1.0, is compatible with v3.0.0. You can still run your old code with v3.1.0, but consider rewriting it. Please refer to the [migration guide](https://python-tradingview-ta.readthedocs.io/en/latest/migration.html).
  
 ## Features
 * Fast analysis
@@ -21,18 +24,15 @@
 
 ## Example
 ```python
-from tradingview_ta import TA_Handler
+from tradingview_ta import TA_Handler, Interval
 
-handler = TA_Handler()
-handler.symbol = "TSLA"
-handler.interval = "15m" # 15 Minutes
-handler.exchange = "NASDAQ"
-handler.screener = "america"
-
-analysis = handler.get_analysis()
-
-print(analysis.summary)
-#Example output: {"RECOMMENDATION": "BUY", "BUY": 8, "NEUTRAL": 6, "SELL": 3}
+tesla = TA_Handler()
+tesla.set_symbol_as("TSLA")
+tesla.set_exchange_as_crypto_or_stock("NASDAQ")
+tesla.set_screener_as_stock("america")
+tesla.set_interval_as(Interval.INTERVAL_1_DAY)
+print(tesla.get_analysis().summary)
+# Example output: {"RECOMMENDATION": "BUY", "BUY": 8, "NEUTRAL": 6, "SELL": 3}
 ```
 ## Documentation
  [Read The Docs](https://python-tradingview-ta.readthedocs.io)

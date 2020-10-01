@@ -16,17 +16,17 @@ handler = TA_Handler()
 [Symbol](https://en.wikipedia.org/wiki/Ticker_symbol) (or ticker symbol) is an abbreviation of a stock or currency.
 ```python
 # Tesla's stock
-handler.symbol = "TSLA" 
+handler.set_symbol_as("TSLA")
 ```
 Another example:
 ```python
 # Bitcoin/USD Tether pair
-handler.symbol = "BTCUSDT"
+handler.set_symbol_as("BTCUSDT")
 ```
 Another example:
 ```python
 # USD/EUR pair
-handler.symbol = "USDEUR"
+handler.set_symbol_as("USDEUR")
 ```
 
 ## Setting the exchange
@@ -37,83 +37,91 @@ Example of exchange:
 * Crypto: `BINANCE`, `BITTREX`, etc.
 
 ```python
-# Nasdaq stock exchange
-handler.exchange = "NASDAQ"
+# Nasdaq stock exchange (works only for stocks and cryptos).
+handler.set_exchange_as_crypto_or_stock("NASDAQ")
 ```
 
-For forex, you can use `FX_IDC` as the exchange, and for CFD, you can use `TVC` as the exchange. They are not an exchange, but they provide data to TradingView.
+For forex and CFD, use the following code:
+
+```python
+# Forex
+handler.set_exchange_as_forex()
+```
+
+```python
+# CFD
+handler.set_exchange_as_cfd()
+```
 
 ## Setting the screener
-Screener is a little bit hard to explain. The meaning can be different.
+Screener is a little bit hard to explain. The meaning can be different for every financial instrument.
 
 ### Stock
 Exchange's country of origin.
-For example, since NASDAQ is from the United States of America, put `america` as the screener.
+For example, since NASDAQ is from the United States of America, set `america` as the screener.
 ```python
-handler.screener = "america"
+handler.set_screener_as_stock("america")
 ```
 
 ### Crypto
-Put `crypto` as the screener.
+Set the screener for crypto.
 ```python
-handler.screener = "crypto"
+handler.set_screener_as_crypto()
 ```
 
 ### Forex
-Put `forex` as the screener.
+Set the screener for forex.
 ```python
-handler.screener = "forex"
+handler.set_screener_as_forex()
 ```
 
 ### CFD
-Put `cfd` as the screener.
+Set the screener for CFD.
 ```python
-handler.screener = "cfd"
+handler.set_screener_as_cfd()
 ```
 
 ## Setting the interval
 TradingView has some available intervals to use. From 1 Minute to 1 Month. See available intervals below.
 
-`interval` is case sensitive. So, be careful.
-
 ### 1 Minute
 ```python
-handler.interval = "1m"
+handler.set_interval_as(Interval.INTERVAL_1_MINUTE)
 ```
 
 ### 5 Minutes
 ```python
-handler.interval = "5m"
+handler.set_interval_as(Interval.INTERVAL_5_MINUTES)
 ```
 
 ### 15 Minutes
 ```python
-handler.interval = "15m"
+handler.set_interval_as(Interval.INTERVAL_15_MINUTES)
 ```
 
 ### 1 Hour
 ```python
-handler.interval = "1h"
+handler.set_interval_as(Interval.INTERVAL_1_HOUR)
 ```
 
 ### 4 Hours
 ```python
-handler.interval = "4h"
+handler.set_interval_as(Interval.INTERVAL_4_HOURS)
 ```
 
 ### 1 Day (Default)
 ```python
-handler.interval = "1d"
+handler.set_interval_as(Interval.INTERVAL_1_DAY)
 ```
 
 ### 1 Week
 ```python
-handler.interval = "1W"
+handler.set_interval_as(Interval.INTERVAL_1_WEEK)
 ```
 
 ### 1 Month
 ```python
-handler.interval = "1M"
+handler.set_interval_as(Interval.INTERVAL_1_MONTH)
 ```
 
 ## Getting the analysis
@@ -156,7 +164,7 @@ print(analysis.indicators)
 ```
 
 ### Time Created, Symbol, Exchange, and Screener
-Details about the analysis. Most of them are values that you set before.
+Details about the analysis. Most of them are values that you set previously.
 
 #### Time Created
 ```python
