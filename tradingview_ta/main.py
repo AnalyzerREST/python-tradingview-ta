@@ -5,7 +5,7 @@
 import requests, json, datetime, warnings
 from .technicals import Compute
 
-print("INFO: This version of tradingview-ta is different than the 2.5.0 or lower. Please see https://github.com/deathlyface/python-tradingview-ta for instructions on how to set up.")
+print("INFO: This version of tradingview_ta is compatible with v3.0.0. You can still run your old code with this version, but consider rewriting it. Please refer to the migration guide (https://python-tradingview-ta.readthedocs.io/en/latest/migration.html).")
 
 __version__ = "3.0.0"
 
@@ -17,6 +17,16 @@ class Analysis(object):
     summary = {}
     oscillators = {}
     moving_averages = {}
+
+class Interval:
+    INTERVAL_1_MINUTE = "1m"
+    INTERVAL_5_MINUTES = "15m"
+    INTERVAL_1_HOUR = "1h"
+    INTERVAL_4_HOURS = "4h"
+    INTERVAL_1_DAY = "1d"
+    INTERVAL_1_WEEK = "1W"
+    INTERVAL_1_MONTH = "1M"
+
 
 class TradingView:
     scan_url = "https://scanner.tradingview.com/"
@@ -68,6 +78,70 @@ class TA_Handler(object):
     exchange = ""
     symbol = ""
     interval = "1d"
+
+    #Set functions
+    def set_screener_as_stock(self, country):
+        """Set the screener as a country (for stocks). 
+
+        Args:
+            country (string): Stock's country (ex: If NFLX or AAPL, then "america" is the screener)
+        """
+        self.screener = country
+
+    def set_screener_as_crypto(self):
+        """Set the screener as crypto (for cryptocurrencies).
+        """
+        self.screener = "crypto"
+
+    def set_screener_as_cfd(self):
+        """Set the screener as cfd (contract for differences).
+        """
+        self.screener = "cfd"
+
+    def set_screener_as_forex(self):
+        """Set the screener as forex.
+        """
+        self.screener = "forex"
+
+    def set_exchange_as_crypto_or_stock(self, exchange):
+        """Set the exchange
+
+        Args:
+            exchange (string): Stock/Crypto's exchange (NASDAQ, NYSE, BINANCE, BITTREX, etc).
+        """
+        self.exchange = exchange
+
+    def set_exchange_as_forex(self):
+        """Set the exchange as FX_IDC for forex.
+        """
+        self.exchange = "FX_IDC"
+    
+    def set_exchange_as_cfd(self):
+        """Set the exchange as TVC for cfd.
+        """
+        self.exchange = "TVC"
+
+    def set_interval_as(self, intvl):
+        """Set the interval.
+
+        Refer to: https://python-tradingview-ta.readthedocs.io/en/latest/usage.html#setting-the-interval
+
+        Args:
+            intvl (string): interval. You can use values from the Interval class. 
+
+        """
+        self.interval = intvl
+
+    def set_symbol_as(self, symbol):
+        """Set the symbol.
+
+        Refer to: https://python-tradingview-ta.readthedocs.io/en/latest/usage.html#setting-the-symbol
+
+        Args:
+            symbol (string): abbreviation of a stock or currency (ex: NFLX, AAPL, BTCUSD).
+        """
+        self.symbol = symbol
+        
 
     #Get analysis
     def get_analysis(self):
