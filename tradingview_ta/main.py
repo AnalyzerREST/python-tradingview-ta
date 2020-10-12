@@ -20,7 +20,8 @@ class Analysis(object):
 
 class Interval:
     INTERVAL_1_MINUTE = "1m"
-    INTERVAL_5_MINUTES = "15m"
+    INTERVAL_5_MINUTES = "5m"
+    INTERVAL_15_MINUTES = "15m"
     INTERVAL_1_HOUR = "1h"
     INTERVAL_4_HOURS = "4h"
     INTERVAL_1_DAY = "1d"
