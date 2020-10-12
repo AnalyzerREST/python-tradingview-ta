@@ -1,5 +1,5 @@
 # Migration
-This guide will help you to migrate from v3.0.0 to v3.1.0. Refer to [Usage](usage.md) for a complete guide.
+This guide will help you to migrate from v3.0.0 to v3.1.1. Refer to [Usage](usage.md) for a complete guide.
 
 ## What's different
 In addition of setting the variable directly, you can now use functions.
