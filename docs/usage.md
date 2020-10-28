@@ -15,9 +15,9 @@ handler = TA_Handler()
 ## What do you need to know
 You need to know the exchange, symbol, screener, and interval to use this library. The following images shows some of them.
 
-![btcusd-annotated](https://raw.githubusercontent.com/deathlyface/python-tradingview-ta/master/images/btcusd-example-annotated.png)
+![](https://raw.githubusercontent.com/deathlyface/python-tradingview-ta/master/images/btcusd-example-annotated.png)
 
-![gold-example](https://github.com/deathlyface/python-tradingview-ta/blob/master/images/gold-example-annotated.png?raw=true)
+![](https://github.com/deathlyface/python-tradingview-ta/blob/master/images/gold-example-annotated.png?raw=true)
 
 The images above were taken from [https://www.tradingview.com/symbols/{symbol}/](https://www.tradingview.com/symbols/btcusd/). For detailed information, see individual docs below.
 
@@ -94,7 +94,7 @@ handler.set_screener_as_cfd()
 ## Setting the interval
 TradingView has some available intervals to use, from 1 Minute to 1 Month. See available intervals below.
 
-![interval-annotated](https://github.com/deathlyface/python-tradingview-ta/blob/master/images/interval-annotated.png?raw=true)
+![](https://github.com/deathlyface/python-tradingview-ta/blob/master/images/interval-annotated.png?raw=true)
 
 ### 1 Minute
 ```python
