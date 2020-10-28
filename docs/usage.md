@@ -12,6 +12,15 @@ from tradingview_ta import TA_Handler
 handler = TA_Handler()
 ```
 
+## What do you need to know
+You need to know the exchange, symbol, screener, and interval to use this library. The following images shows some of them.
+
+![btcusd-annotated](https://raw.githubusercontent.com/deathlyface/python-tradingview-ta/master/images/btcusd-example-annotated.png)
+
+![gold-example](https://github.com/deathlyface/python-tradingview-ta/blob/master/images/gold-example-annotated.png?raw=true)
+
+The images above were taken from [https://www.tradingview.com/symbols/{symbol}/](https://www.tradingview.com/symbols/btcusd/). For detailed information, see individual docs below.
+
 ## Setting the symbol
 [Symbol](https://en.wikipedia.org/wiki/Ticker_symbol) (or ticker symbol) is an abbreviation of a stock or currency.
 ```python
@@ -35,9 +44,10 @@ An [exchange](https://en.wikipedia.org/wiki/Stock_exchange) (or exchanger, stock
 Example of exchange:
 * Stock: `NASDAQ`, `NYSE`, etc.
 * Crypto: `BINANCE`, `BITTREX`, etc.
+* Futures: `CME`, `COMEX`, etc.
 
 ```python
-# Nasdaq stock exchange (works only for stocks and cryptos).
+# Nasdaq stock exchange (works only for stocks, futures, and cryptos).
 handler.set_exchange_as_crypto_or_stock("NASDAQ")
 ```
 
@@ -54,9 +64,9 @@ handler.set_exchange_as_cfd()
 ```
 
 ## Setting the screener
-Screener is a little bit hard to explain. The meaning can be different for every financial instrument.
+Screener is a little bit hard to explain. The meaning might be a little bit different for every financial instrument.
 
-### Stock
+### Stock and Futures
 Exchange's country of origin.
 For example, since NASDAQ is from the United States of America, set `america` as the screener.
 ```python
@@ -82,7 +92,9 @@ handler.set_screener_as_cfd()
 ```
 
 ## Setting the interval
-TradingView has some available intervals to use. From 1 Minute to 1 Month. See available intervals below.
+TradingView has some available intervals to use, from 1 Minute to 1 Month. See available intervals below.
+
+![interval-annotated](https://github.com/deathlyface/python-tradingview-ta/blob/master/images/interval-annotated.png?raw=true)
 
 ### 1 Minute
 ```python
@@ -133,7 +145,7 @@ analysis = handler.get_analysis()
 The `get_analysis()` function will return an object of `Analysis` class, which store the analysis, time created, ticker symbol, exchange, and screener.
 
 ### Analysis
-There are 3 types of analysis in TradingView. Oscillators, moving averages, and summary (which is oscillators and moving averages combined).
+There are 3 types of analysis in TradingView: oscillators, moving averages, and summary (which is oscillators and moving averages combined).
 
 #### Summary
 ```python
