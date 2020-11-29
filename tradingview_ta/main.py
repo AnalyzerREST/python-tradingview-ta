@@ -5,9 +5,7 @@
 import requests, json, datetime, warnings
 from .technicals import Compute
 
-print("INFO: This version of tradingview_ta is compatible with v3.0.0. You can still run your old code with this version, but consider rewriting it. Please refer to the migration guide (https://python-tradingview-ta.readthedocs.io/en/latest/migration.html).")
-
-__version__ = "3.0.0"
+__version__ = "3.1.2"
 
 class Analysis(object):
     exchange = ""
