@@ -7,6 +7,14 @@ This guide will help you to set up your code to your need. Be sure to install th
 from tradingview_ta import TA_Handler
 ```
 
+## Finding the version
+This feature is only available starting from version 3.1.3 and above.
+
+```python
+print(tradingview_ta.__version__)
+# Example output: 3.1.3
+```
+
 ## Instantiating the TA_Handler class
 ```python
 handler = TA_Handler()
