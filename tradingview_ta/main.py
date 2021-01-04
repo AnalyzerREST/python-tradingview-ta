@@ -161,7 +161,8 @@ class TA_Handler(object):
         exch_smbl = self.exchange.upper() + ":" + self.symbol.upper()
         data = TradingView.data(exch_smbl, self.interval)
         scan_url = TradingView.scan_url + self.screener.lower() + "/scan"
-        response = requests.post(scan_url, json=data)
+        headers = {"User-Agent": "tradingview_ta/{}".format(__version__)}
+        response = requests.post(scan_url, json=data, headers=headers)
 
         # Return False if can't get data
         if response.status_code != 200:
