@@ -8,7 +8,7 @@
 ## Note
  The newest version is compatible with v3.0.0. You can still run your old code, but consider rewriting it. Please refer to the [migration guide](https://python-tradingview-ta.readthedocs.io/en/latest/migration.html).
 
- A bug in v3.1.0 has been fixed by [lobziq](https://github.com/lobziq). Please update to v3.1.2.
+ Please ensure to update to the latest version. `pip install -U tradingview_ta`
  
 ## Features
 * Fast analysis
