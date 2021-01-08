@@ -11,13 +11,13 @@
  Please ensure to update to the latest version. `pip install -U tradingview_ta`
  
 ## Features
-* Fast analysis
+* Fast analysis (compared to v2.5.0 or older)
 * Reputable data sources
-* Detailed indicators
+* [Indicator values](https://python-tradingview-ta.readthedocs.io/en/latest/usage.html#indicator-values)
 
 ## Requirements
  - Python 3.5 or newer.
- - [Requests](https://pypi.org/project/requests/), Included in package.
+ - [Requests](https://pypi.org/project/requests/), Included in installation.
  
 ## Installation
  Using pip:
