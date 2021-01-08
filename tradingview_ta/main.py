@@ -155,7 +155,7 @@ class TA_Handler(object):
             raise Exception("Error: exchange is empty or not valid")
         elif self.symbol == "" or type(self.symbol) != str:
             raise Exception("Error: symbol is empty or not valid")
-        elif self.interval == "" or type(self.symbol) != str:
+        elif self.interval == "" or type(self.interval) != str:
             warnings.warn("Warning: interval is empty or not valid, defaulting to 1 day.")
 
         exch_smbl = self.exchange.upper() + ":" + self.symbol.upper()
