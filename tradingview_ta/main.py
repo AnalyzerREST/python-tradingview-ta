@@ -15,6 +15,7 @@ class Analysis(object):
     summary = {}
     oscillators = {}
     moving_averages = {}
+    indicators = {}
 
 class Interval:
     INTERVAL_1_MINUTE = "1m"
@@ -259,7 +260,6 @@ class TA_Handler(object):
         analysis.symbol = self.symbol
         analysis.time = datetime.datetime.now()
 
-        analysis.indicators = {}
         for x in range(len(indicator_values)):
             analysis.indicators[TradingView.indicators[x].replace("|interval", "")] = indicator_values[x]
 
