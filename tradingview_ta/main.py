@@ -64,6 +64,8 @@ class TradingView:
             # 1 Month
             data_interval = "|1M"
         else:
+            if interval != '1d':
+                warnings.warn("Warning: interval is empty or not valid, defaulting to 1 day.")
             # Default, 1 Day
             data_interval = ""
             
