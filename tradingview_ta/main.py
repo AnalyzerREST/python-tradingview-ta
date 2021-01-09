@@ -5,7 +5,7 @@
 import requests, json, datetime, warnings
 from .technicals import Compute
 
-__version__ = "3.1.4"
+__version__ = "3.1.5"
 
 class Analysis(object):
     exchange = ""
@@ -31,7 +31,7 @@ class Interval:
 
 class TradingView:
     scan_url = "https://scanner.tradingview.com/"
-    indicators = ["Recommend.Other|interval","Recommend.All|interval","Recommend.MA|interval","RSI|interval","RSI[1]|interval","Stoch.K|interval","Stoch.D|interval","Stoch.K[1]|interval","Stoch.D[1]|interval","CCI20|interval","CCI20[1]|interval","ADX|interval","ADX+DI|interval","ADX-DI|interval","ADX+DI[1]|interval","ADX-DI[1]|interval","AO|interval","AO[1]|interval","Mom|interval","Mom[1]|interval","MACD.macd|interval","MACD.signal|interval","Rec.Stoch.RSI|interval","Stoch.RSI.K|interval","Rec.WR|interval","W.R|interval","Rec.BBPower|interval","BBPower|interval","Rec.UO|interval","UO|interval","close|interval","EMA5|interval","SMA5|interval","EMA10|interval","SMA10|interval","EMA20|interval","SMA20|interval","EMA30|interval","SMA30|interval","EMA50|interval","SMA50|interval","EMA100|interval","SMA100|interval","EMA200|interval","SMA200|interval","Rec.Ichimoku|interval","Ichimoku.BLine|interval","Rec.VWMA|interval","VWMA|interval","Rec.HullMA9|interval","HullMA9|interval","Pivot.M.Classic.S3|interval","Pivot.M.Classic.S2|interval","Pivot.M.Classic.S1|interval","Pivot.M.Classic.Middle|interval","Pivot.M.Classic.R1|interval","Pivot.M.Classic.R2|interval","Pivot.M.Classic.R3|interval","Pivot.M.Fibonacci.S3|interval","Pivot.M.Fibonacci.S2|interval","Pivot.M.Fibonacci.S1|interval","Pivot.M.Fibonacci.Middle|interval","Pivot.M.Fibonacci.R1|interval","Pivot.M.Fibonacci.R2|interval","Pivot.M.Fibonacci.R3|interval","Pivot.M.Camarilla.S3|interval","Pivot.M.Camarilla.S2|interval","Pivot.M.Camarilla.S1|interval","Pivot.M.Camarilla.Middle|interval","Pivot.M.Camarilla.R1|interval","Pivot.M.Camarilla.R2|interval","Pivot.M.Camarilla.R3|interval","Pivot.M.Woodie.S3|interval","Pivot.M.Woodie.S2|interval","Pivot.M.Woodie.S1|interval","Pivot.M.Woodie.Middle|interval","Pivot.M.Woodie.R1|interval","Pivot.M.Woodie.R2|interval","Pivot.M.Woodie.R3|interval","Pivot.M.Demark.S1|interval","Pivot.M.Demark.Middle|interval","Pivot.M.Demark.R1|interval"]
+    indicators = ["Recommend.Other{}","Recommend.All{}","Recommend.MA{}","RSI{}","RSI[1]{}","Stoch.K{}","Stoch.D{}","Stoch.K[1]{}","Stoch.D[1]{}","CCI20{}","CCI20[1]{}","ADX{}","ADX+DI{}","ADX-DI{}","ADX+DI[1]{}","ADX-DI[1]{}","AO{}","AO[1]{}","Mom{}","Mom[1]{}","MACD.macd{}","MACD.signal{}","Rec.Stoch.RSI{}","Stoch.RSI.K{}","Rec.WR{}","W.R{}","Rec.BBPower{}","BBPower{}","Rec.UO{}","UO{}","close{}","EMA5{}","SMA5{}","EMA10{}","SMA10{}","EMA20{}","SMA20{}","EMA30{}","SMA30{}","EMA50{}","SMA50{}","EMA100{}","SMA100{}","EMA200{}","SMA200{}","Rec.Ichimoku{}","Ichimoku.BLine{}","Rec.VWMA{}","VWMA{}","Rec.HullMA9{}","HullMA9{}","Pivot.M.Classic.S3{}","Pivot.M.Classic.S2{}","Pivot.M.Classic.S1{}","Pivot.M.Classic.Middle{}","Pivot.M.Classic.R1{}","Pivot.M.Classic.R2{}","Pivot.M.Classic.R3{}","Pivot.M.Fibonacci.S3{}","Pivot.M.Fibonacci.S2{}","Pivot.M.Fibonacci.S1{}","Pivot.M.Fibonacci.Middle{}","Pivot.M.Fibonacci.R1{}","Pivot.M.Fibonacci.R2{}","Pivot.M.Fibonacci.R3{}","Pivot.M.Camarilla.S3{}","Pivot.M.Camarilla.S2{}","Pivot.M.Camarilla.S1{}","Pivot.M.Camarilla.Middle{}","Pivot.M.Camarilla.R1{}","Pivot.M.Camarilla.R2{}","Pivot.M.Camarilla.R3{}","Pivot.M.Woodie.S3{}","Pivot.M.Woodie.S2{}","Pivot.M.Woodie.S1{}","Pivot.M.Woodie.Middle{}","Pivot.M.Woodie.R1{}","Pivot.M.Woodie.R2{}","Pivot.M.Woodie.R3{}","Pivot.M.Demark.S1{}","Pivot.M.Demark.Middle{}","Pivot.M.Demark.R1{}"]
     def data(symbol, interval):
         """Format TradingView's Scanner Post Data
 
@@ -67,10 +67,7 @@ class TradingView:
             # Default, 1 Day
             data_interval = ""
             
-        indicators_copy = TradingView.indicators.copy()
-        for x in range(len(indicators_copy)):
-            indicators_copy[x] = indicators_copy[x].replace("|interval", data_interval)
-        data_json = {"symbols":{"tickers":[symbol.upper()],"query":{"types":[]}},"columns":indicators_copy}
+        data_json = {"symbols":{"tickers":[symbol.upper()],"query":{"types":[]}},"columns":[x.format(data_interval) for x in TradingView.indicators]}
 
         return data_json
 
@@ -263,7 +260,7 @@ class TA_Handler(object):
         analysis.time = datetime.datetime.now()
 
         for x in range(len(indicator_values)):
-            analysis.indicators[TradingView.indicators[x].replace("|interval", "")] = indicator_values[x]
+            analysis.indicators[TradingView.indicators[x].format("")] = indicator_values[x]
 
         analysis.oscillators = {"RECOMMENDATION": recommend_oscillators, "BUY": oscillators_counter["BUY"], "SELL": oscillators_counter["SELL"], "NEUTRAL": oscillators_counter["NEUTRAL"], "COMPUTE": computed_oscillators}
         analysis.moving_averages = {"RECOMMENDATION": recommend_moving_averages, "BUY": ma_counter["BUY"], "SELL": ma_counter["SELL"], "NEUTRAL": ma_counter["NEUTRAL"], "COMPUTE": computed_ma}
