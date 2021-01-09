@@ -15,6 +15,7 @@ class Analysis(object):
     summary = {}
     oscillators = {}
     moving_averages = {}
+    indicators = {}
 
 class Interval:
     INTERVAL_1_MINUTE = "1m"
