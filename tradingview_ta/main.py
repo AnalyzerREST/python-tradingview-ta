@@ -260,7 +260,6 @@ class TA_Handler(object):
         analysis.symbol = self.symbol
         analysis.time = datetime.datetime.now()
 
-        analysis.indicators = {}
         for x in range(len(indicator_values)):
             analysis.indicators[TradingView.indicators[x].replace("|interval", "")] = indicator_values[x]
 
