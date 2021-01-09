@@ -12,6 +12,7 @@ class Analysis(object):
     symbol = ""
     screener = ""
     time = ""
+    interval = ""
     summary = {}
     oscillators = {}
     moving_averages = {}
@@ -258,6 +259,7 @@ class TA_Handler(object):
         analysis.screener = self.screener
         analysis.exchange = self.exchange
         analysis.symbol = self.symbol
+        analysis.interval = self.interval
         analysis.time = datetime.datetime.now()
 
         for x in range(len(indicator_values)):
