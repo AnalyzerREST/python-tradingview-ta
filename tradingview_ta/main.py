@@ -5,7 +5,7 @@
 import requests, json, datetime, warnings
 from .technicals import Compute
 
-__version__ = "3.1.5"
+__version__ = "3.1.6"
 
 class Analysis(object):
     exchange = ""
@@ -65,7 +65,7 @@ class TradingView:
             data_interval = "|1M"
         else:
             if interval != '1d':
-                warnings.warn("Warning: interval is empty or not valid, defaulting to 1 day.")
+                warnings.warn("Interval is empty or not valid, defaulting to 1 day.")
             # Default, 1 Day
             data_interval = ""
             
@@ -151,11 +151,11 @@ class TA_Handler(object):
             Analysis: Contains information about the analysis.
         """
         if self.screener == "" or type(self.screener) != str:
-            raise Exception("Error: screener is empty or not valid")
+            raise Exception("Screener is empty or not valid.")
         elif self.exchange == "" or type(self.exchange) != str:
-            raise Exception("Error: exchange is empty or not valid")
+            raise Exception("Exchange is empty or not valid.")
         elif self.symbol == "" or type(self.symbol) != str:
-            raise Exception("Error: symbol is empty or not valid")
+            raise Exception("Symbol is empty or not valid.")
 
         exch_smbl = self.exchange.upper() + ":" + self.symbol.upper()
         data = TradingView.data(exch_smbl, self.interval)
@@ -165,13 +165,13 @@ class TA_Handler(object):
 
         # Return False if can't get data
         if response.status_code != 200:
-            raise Exception("Error: can't access TradingView's API. Error code: {}".format(response.status_code))
+            raise Exception("Can't access TradingView's API. HTTP status code: {}.".format(response.status_code))
         
         result = json.loads(response.text)["data"]
         if result != []:
             indicator_values = result[0]["d"]
         else:
-            raise Exception("Error: exchange or symbol not found.")
+            raise Exception("Exchange or symbol not found.")
 
 
         oscillators_counter, ma_counter = {"BUY": 0, "SELL": 0, "NEUTRAL": 0}, {"BUY": 0, "SELL": 0, "NEUTRAL": 0}
