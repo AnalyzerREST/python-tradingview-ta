@@ -3,7 +3,7 @@
  
  Author: [deathlyface](https://deathlyf.com)
  
- ![TradingView](https://raw.githubusercontent.com/deathlyface/python-tradingview-ta/master/images/tradingview.png)
+ ![TradingView](https://raw.githubusercontent.com/deathlyface/python-tradingview-ta/main/images/tradingview.png)
 
 ## Note
  The newest version is compatible with v3.0.0. You can still run your old code, but consider rewriting it. Please refer to the [migration guide](https://python-tradingview-ta.readthedocs.io/en/latest/migration.html).
@@ -49,7 +49,7 @@ print(tesla.get_analysis().summary)
  Trading (especially using an automated program) is a dangerous activity. Do not use TradingView's analysis to trade automatically without your supervision. I am not responsible for any financial loss.
 
 ## Contributing
- You may fork this repository or submit a pull request. Any pull request (documentation, bug fix, features, etc) are welcomed. Please follow the guidelines [here](https://github.com/deathlyface/python-tradingview-ta/blob/master/CONTRIBUTING.md).
+ You may fork this repository or submit a pull request. Any pull request (documentation, bug fix, features, etc) are welcomed. Please follow the guidelines [here](https://github.com/deathlyface/python-tradingview-ta/blob/main/CONTRIBUTING.md).
  
 ## License
  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
