@@ -4,7 +4,7 @@ This guide will help you to set up your code to your need. Be sure to install th
 
 ## Importing the module
 ```python
-from tradingview_ta import TA_Handler
+from tradingview_ta import TA_Handler, Interval
 ```
 
 ## Finding the version
