@@ -25,7 +25,7 @@ from recommonmark.transform import AutoStructify
 # -- Project information -----------------------------------------------------
 
 project = u'python-tradingview-ta'
-copyright = u'2020, deathlyface (Brian)'
+copyright = u'2021, deathlyface (Brian)'
 author = u'deathlyface (Brian)'
 
 # The short X.Y version

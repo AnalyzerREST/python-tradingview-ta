@@ -1,12 +1,12 @@
-# Usage (>=3.2.0)
+# Usage (Legacy, v3.0.0 to v3.1.6)
 
 This guide will help you to set up your code to your need. Be sure to install the package first. See [Getting Started](overview.md) if you haven't installed it.
 
-This guide is only for version 3.2.0 or newer, If your version is older than 3.2.0, please see [Usage (Legacy)](usage_old.md).
+This guide is only for the legacy version of tradingview_ta (<3.2.0). If your version is 3.2.0 or newer, please see [Usage (>=3.2.0)](usage.md).
 
 ## Importing the module
 ```python
-from tradingview_ta import TA_Handler, Interval, Exchange
+from tradingview_ta import TA_Handler, Interval
 ```
 
 ## Finding the version
@@ -18,17 +18,8 @@ print(tradingview_ta.__version__)
 ```
 
 ## Instantiating the TA_Handler class
-Starting from version 3.2.0, you can set up the symbol, exchange, screener, and interval using arguments when instantiating the TA_Handler. This makes your code more simple and clean.
-
-The following code is an example of how to instantiate the TA_Handler class. Note that this code does not work and you need to set up the symbol, exchange, screener, and interval. Please scroll down below for the guide to set these values.
-
 ```python
-handler = TA_Handler(
-    symbol="SYMBOL",
-    exchange="EXCHANGE",
-    screener="SCREENER",
-    interval="INTERVAL"
-)
+handler = TA_Handler()
 ```
 
 ## What do you need to know
@@ -44,17 +35,17 @@ The images above were taken from [https://www.tradingview.com/symbols/{symbol}/]
 [Symbol](https://en.wikipedia.org/wiki/Ticker_symbol) (or ticker symbol) is an abbreviation of a stock or currency.
 ```python
 # Tesla's stock
-symbol="TSLA"
+handler.set_symbol_as("TSLA")
 ```
 Another example:
 ```python
 # Bitcoin/USD Tether pair
-symbol="BTCUSDT"
+handler.set_symbol_as("BTCUSDT")
 ```
 Another example:
 ```python
 # USD/EUR pair
-symbol="USDEUR"
+handler.set_symbol_as("USDEUR")
 ```
 
 ## Setting the exchange
@@ -67,19 +58,19 @@ Example of exchange:
 
 ```python
 # Stock, futures, and crypto
-exchange="NASDAQ"
+handler.set_exchange_as_crypto_or_stock("NASDAQ")
 ```
 
 For forex and CFD, use the following code:
 
 ```python
 # Forex
-exchange=Exchange.FOREX
+handler.set_exchange_as_forex()
 ```
 
 ```python
 # CFD
-exchange=Exchange.CFD
+handler.set_exchange_as_cfd()
 ```
 
 ## Setting the screener
@@ -89,25 +80,25 @@ Screener is a little bit hard to explain. The meaning might be a little bit diff
 Exchange's country of origin.
 For example, since NASDAQ is from the United States of America, set `america` as the screener.
 ```python
-screener="america"
+handler.set_screener_as_stock("america")
 ```
 
 ### Crypto
 Set the screener for crypto.
 ```python
-screener="crypto"
+handler.set_screener_as_crypto()
 ```
 
 ### Forex
 Set the screener for forex.
 ```python
-screener="forex"
+handler.set_screener_as_forex()
 ```
 
 ### CFD
 Set the screener for CFD.
 ```python
-screener="cfd"
+handler.set_screener_as_cfd()
 ```
 
 ## Setting the interval
@@ -117,42 +108,42 @@ TradingView has some available intervals to use, from 1 Minute to 1 Month. See a
 
 ### 1 Minute
 ```python
-interval=Interval.INTERVAL_1_MINUTE
+handler.set_interval_as(Interval.INTERVAL_1_MINUTE)
 ```
 
 ### 5 Minutes
 ```python
-interval=Interval.INTERVAL_5_MINUTES
+handler.set_interval_as(Interval.INTERVAL_5_MINUTES)
 ```
 
 ### 15 Minutes
 ```python
-interval=Interval.INTERVAL_15_MINUTES
+handler.set_interval_as(Interval.INTERVAL_15_MINUTES)
 ```
 
 ### 1 Hour
 ```python
-interval=Interval.INTERVAL_1_HOUR
+handler.set_interval_as(Interval.INTERVAL_1_HOUR)
 ```
 
 ### 4 Hours
 ```python
-interval=Interval.INTERVAL_4_HOURS
+handler.set_interval_as(Interval.INTERVAL_4_HOURS)
 ```
 
 ### 1 Day (Default)
 ```python
-interval=Interval.INTERVAL_1_DAY
+handler.set_interval_as(Interval.INTERVAL_1_DAY)
 ```
 
 ### 1 Week
 ```python
-interval=Interval.INTERVAL_1_WEEK
+handler.set_interval_as(Interval.INTERVAL_1_WEEK)
 ```
 
 ### 1 Month
 ```python
-interval=Interval.INTERVAL_1_MONTH
+handler.set_interval_as(Interval.INTERVAL_1_MONTH)
 ```
 
 ## Full example
@@ -161,34 +152,31 @@ The following code shows some example on how to set up the symbol, interval, scr
 ### Stock
 ```python
 # Tesla / U.S. Dollar
-handler = TA_Handler(
-    symbol="TSLA",
-    screener="america",
-    exchange="NASDAQ",
-    interval=Interval.INTERVAL_1_WEEK
-)
+handler = TA_Handler()
+handler.set_symbol_as("TSLA")
+handler.set_exchange_as_crypto_or_stock("NASDAQ")
+handler.set_screener_as_stock("america")
+handler.set_interval_as(Interval.INTERVAL_1_WEEK)
 ```
 
 ### Cryptocurrency
 ```python
 # Bitcoin / USD Tether
-handler = TA_Handler(
-    symbol="BTCUSDT",
-    screener="crypto",
-    exchange="binance",
-    interval=Interval.INTERVAL_1_DAY
-)
+handler = TA_Handler()
+handler.set_symbol_as("BTCUSDT")
+handler.set_exchange_as_crypto_or_stock("binance")
+handler.set_screener_as_crypto()
+handler.set_interval_as(Interval.INTERVAL_1_DAY)
 ```
 
 ### Forex
 ```python
 # U.S. Dollar / Indonesian Rupiah
-handler = TA_Handler(
-    symbol="USDIDR",
-    screener="forex",
-    exchange=Exchange.FOREX,
-    interval=Interval.INTERVAL_1_MONTH
-)
+handler = TA_Handler()
+handler.set_symbol_as("USDIDR")
+handler.set_exchange_as_forex()
+handler.set_screener_as_forex()
+handler.set_interval_as(Interval.INTERVAL_1_MONTH)
 ```
 
 ## Getting the analysis

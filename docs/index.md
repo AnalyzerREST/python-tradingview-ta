@@ -3,7 +3,7 @@ This documentation will help you to understand how python_tradingview_ta works a
 
 ## Contents
 * [Getting Started](overview.md)
-* [Usage](usage.md)
+* [Usage (>=3.2.0)](usage.md)
+* [Usage (Legacy)](usage_old.md)
 * [How it Works](how_it_works.md)
-* [Migration](migration.md)
 

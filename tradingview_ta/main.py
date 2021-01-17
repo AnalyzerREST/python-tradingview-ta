@@ -5,7 +5,7 @@
 import requests, json, datetime, warnings
 from .technicals import Compute
 
-__version__ = "3.1.6"
+__version__ = "3.2.0"
 
 class Analysis(object):
     exchange = ""
@@ -27,6 +27,10 @@ class Interval:
     INTERVAL_1_DAY = "1d"
     INTERVAL_1_WEEK = "1W"
     INTERVAL_1_MONTH = "1M"
+
+class Exchange:
+    FOREX = "FX_IDC"
+    CFD = "TVC"
 
 
 class TradingView:
@@ -78,6 +82,12 @@ class TA_Handler(object):
     exchange = ""
     symbol = ""
     interval = ""
+
+    def __init__(self, screener="", exchange="", symbol="", interval=""):
+        self.screener = screener
+        self.exchange = exchange
+        self.symbol = symbol
+        self.interval = interval
 
     #Set functions
     def set_screener_as_stock(self, country):

@@ -6,7 +6,7 @@
  ![TradingView](https://raw.githubusercontent.com/deathlyface/python-tradingview-ta/main/images/tradingview.png)
 
 ## Note
- The newest version is compatible with v3.0.0. You can still run your old code, but consider rewriting it. Please refer to the [migration guide](https://python-tradingview-ta.readthedocs.io/en/latest/migration.html).
+ The newest version is backward compatible with v3.0.0 or newer. You can still run your old code, but consider rewriting it. Please refer to the [usage guide](https://python-tradingview-ta.readthedocs.io/en/latest/usage.html).
 
  Please ensure to update to the latest version. `pip install -U tradingview_ta`
  
@@ -29,13 +29,14 @@ A demo is available on https://tradingview.deathlyf.com/.
 
 ## Example
 ```python
-from tradingview_ta import TA_Handler, Interval
+from tradingview_ta import TA_Handler, Interval, Exchange
 
-tesla = TA_Handler()
-tesla.set_symbol_as("TSLA")
-tesla.set_exchange_as_crypto_or_stock("NASDAQ")
-tesla.set_screener_as_stock("america")
-tesla.set_interval_as(Interval.INTERVAL_1_DAY)
+handler = TA_Handler(
+    symbol="TSLA",
+    screener="america",
+    exchange="NASDAQ",
+    interval=Interval.INTERVAL_1_DAY
+)
 print(tesla.get_analysis().summary)
 # Example output: {"RECOMMENDATION": "BUY", "BUY": 8, "NEUTRAL": 6, "SELL": 3}
 ```
