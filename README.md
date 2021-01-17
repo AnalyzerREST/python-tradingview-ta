@@ -31,7 +31,7 @@ A demo is available on https://tradingview.deathlyf.com/.
 ```python
 from tradingview_ta import TA_Handler, Interval, Exchange
 
-handler = TA_Handler(
+tesla = TA_Handler(
     symbol="TSLA",
     screener="america",
     exchange="NASDAQ",

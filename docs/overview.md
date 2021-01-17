@@ -15,7 +15,7 @@ pip install tradingview-ta
 ```python
 from tradingview_ta import TA_Handler, Interval, Exchange
 
-handler = TA_Handler(
+tesla = TA_Handler(
     symbol="TSLA",
     screener="america",
     exchange="NASDAQ",
