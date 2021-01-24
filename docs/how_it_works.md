@@ -17,7 +17,7 @@ With a POST request to the URL, we can get this data:
 ## Calculation
 Determining whether to buy or sell is a hard decision. I am not a professional trader and don't even know about technical analysis. So, how does it compute whether to buy/sell?
 
-I reverse engineered TradingView's [JS code](https://www.tradingview.com/static/bundles/technicals.f2e6e6a51aebb6cd46f8.js), which looks like this:
+I reverse engineered TradingView's [JS code](https://gist.github.com/deathlyface/f0bb91658c1f161cafe8990db1473bd6), which looks like this:
 ```javascript
 signalComputationFunctions = {
     computeMASignal: function(e, t) {
