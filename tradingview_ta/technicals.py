@@ -130,9 +130,9 @@ class Compute:
             string: "BUY", "SELL", or "NEUTRAL"
         """
         if (mom < mom1):
-            return Recommendation.buy
-        elif (mom > mom1):
             return Recommendation.sell
+        elif (mom > mom1):
+            return Recommendation.buy
         else:
             return Recommendation.neutral
 
