@@ -239,10 +239,10 @@ class TA_Handler(object):
             oscillators_counter[computed_oscillators["UO"]] += 1
 
         # MOVING AVERAGES
-        ma_list = ["EMA5","SMA5","EMA10","SMA10","EMA20","SMA20","EMA30","SMA30","EMA50","SMA50","EMA100","SMA100","EMA200","SMA200"]
+        ma_list = ["EMA10","SMA10","EMA20","SMA20","EMA30","SMA30","EMA50","SMA50","EMA100","SMA100","EMA200","SMA200"]
         close = indicator_values[30]
         ma_list_counter = 0
-        for index in range(31, 45):
+        for index in range(33, 45):
             if indicator_values[index] != None:
                 computed_ma[ma_list[ma_list_counter]] = Compute.MA(indicator_values[index], close)
                 ma_counter[computed_ma[ma_list[ma_list_counter]]] += 1
