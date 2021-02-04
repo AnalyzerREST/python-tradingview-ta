@@ -5,8 +5,8 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='tradingview_ta',
-    version='3.2.1',
-    description="A python module to get TradingView's technical analysis.",
+    version='3.2.2',
+    description="Unofficial TradingView technical analysis API wrapper.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/deathlyface/python-tradingview-ta',
