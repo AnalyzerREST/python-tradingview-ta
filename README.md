@@ -1,14 +1,14 @@
 # python-tradingview-ta [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Documentation Status](https://readthedocs.org/projects/python-tradingview-ta/badge/?version=latest)](https://python-tradingview-ta.readthedocs.io/en/latest/?badge=latest) [![PyPI version](https://badge.fury.io/py/tradingview-ta.svg)](https://badge.fury.io/py/tradingview-ta)
- A python package to get TradingView's stock/crypto/forex/cfd technical analysis.
- 
- Author: [deathlyface](https://deathlyf.com)
+ An unofficial python API wrapper to retrieve technical analysis from TradingView.
  
  ![TradingView](https://raw.githubusercontent.com/deathlyface/python-tradingview-ta/main/images/tradingview.png)
 
 ## Note
  The newest version is backward compatible with v3.0.0 or newer. You can still run your old code, but consider rewriting it. Please refer to the [usage guide](https://python-tradingview-ta.readthedocs.io/en/latest/usage.html).
 
- Please ensure to update to the latest version. `pip install -U tradingview_ta`
+ Please ensure to update to the latest version for new features and bug fixes. `pip install -U tradingview_ta`
+ 
+ A similar golang package ([deathlyface/gotvta](https://github.com/deathlyface/gotvta)) is in development.
  
 ## Features
 * Fast analysis (compared to v2.5.0 or older)
