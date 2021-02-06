@@ -11,7 +11,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url='https://github.com/deathlyface/python-tradingview-ta',
     author='deathlyface',
-    author_email='bri4nong@gmail.com',
+    author_email='contact@deathlyf.com',
     packages=['tradingview_ta'],
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -21,4 +21,10 @@ setuptools.setup(
     install_requires=[
           'requests',
     ],
-    python_requires='>=3.5')
+    python_requires='>=3.5',
+    project_urls={
+        'Demo': 'https://tradingview.deathlyf.com',
+        'Documentation': 'https://python-tradingview-ta.readthedocs.io',
+        'Source': 'https://github.com/deathlyface/python-tradingview-ta',
+    },
+)
