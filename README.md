@@ -8,7 +8,7 @@
 
  Please ensure to update to the latest version for new features and bug fixes. `pip install -U tradingview_ta`
  
- A similar golang package ([deathlyface/gotvta](https://github.com/deathlyface/gotvta)) is in development.
+ Looking for the golang package? See [dematron/go-tvscanner](https://github.com/dematron/go-tvscanner).
  
 ## Features
 * Fast analysis (compared to v2.5.0 or older)
