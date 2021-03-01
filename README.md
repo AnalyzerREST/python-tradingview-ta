@@ -27,6 +27,9 @@ A demo is available on https://tradingview.deathlyf.com/.
  
 ```pip install tradingview_ta```
 
+or [https://github.com/reg2005/tradingview-ta-docker](docker image):
+```docker run -p 8080:8080 --rm reg2005/tradingview-ta-docker```
+
 ## Example
 ```python
 from tradingview_ta import TA_Handler, Interval, Exchange
