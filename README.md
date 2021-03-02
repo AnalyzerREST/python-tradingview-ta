@@ -23,11 +23,12 @@ A demo is available on https://tradingview.deathlyf.com/.
  - [Requests](https://pypi.org/project/requests/), Included in installation.
  
 ## Installation
- Using pip:
+ [Using pip](https://pypi.org/project/tradingview-ta/):
  
 ```pip install tradingview_ta```
 
-or [https://github.com/reg2005/tradingview-ta-docker](docker image):
+ [Docker image](https://github.com/reg2005/tradingview-ta-docker):
+
 ```docker run -p 8080:8080 --rm reg2005/tradingview-ta-docker```
 
 ## Example
