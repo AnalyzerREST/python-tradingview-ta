@@ -9,11 +9,8 @@
  Please ensure to update to the latest version for new features and bug fixes. `pip install -U tradingview_ta`
  
 ## Other implementations
-
  Looking for the golang package? See [dematron/go-tvscanner](https://github.com/dematron/go-tvscanner).
- 
  Or you need for the NodeJS package? See [tvorilas/trading-view-recommends-parser-nodejs](https://github.com/tvorilas/trading-view-recommends-parser-nodejs).
- 
  
 ## Features
 * Fast analysis (compared to v2.5.0 or older)
