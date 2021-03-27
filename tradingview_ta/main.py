@@ -82,12 +82,23 @@ class TA_Handler(object):
     exchange = ""
     symbol = ""
     interval = ""
+    timeout = None
 
-    def __init__(self, screener="", exchange="", symbol="", interval=""):
+    def __init__(self, screener="", exchange="", symbol="", interval="", timeout=None):
+        """Create an instance of TA_Handler class
+
+        Args:
+            screener (str, required): Screener (see documentation and tradingview's site).
+            exchange (str, required): Exchange (see documentation and tradingview's site).
+            symbol (str, required): Abbreviation of a stock or currency (see documentation and tradingview's site). Defaults to "".
+            interval (str, optional): See the interval class and the documentation. Defaults to 1 day.
+            timeout (float, optional): Timeout for requests (in seconds). Defaults to None.
+        """
         self.screener = screener
         self.exchange = exchange
         self.symbol = symbol
         self.interval = interval
+        self.timeout = timeout
 
     #Set functions
     def set_screener_as_stock(self, country):
@@ -171,7 +182,7 @@ class TA_Handler(object):
         data = TradingView.data(exch_smbl, self.interval)
         scan_url = TradingView.scan_url + self.screener.lower() + "/scan"
         headers = {"User-Agent": "tradingview_ta/{}".format(__version__)}
-        response = requests.post(scan_url, json=data, headers=headers)
+        response = requests.post(scan_url,json=data, headers=headers, timeout=self.timeout)
 
         # Return False if can't get data
         if response.status_code != 200:
