@@ -5,7 +5,9 @@ By contributing to python-tradingview-ta, you accept and agree to the Code of Co
 ## Pull Request Process
 
 - Fork and clone this repository to your system.
-- Install the requirements using `pip install -r requirements.txt`
+- Install the requirements using `pip install -r requirements.txt`.
+- Edit the code/docs.
+- If you edit the code, run the `test.py` file.
 - You DON'T need to increment the version, the maintainer will change it and publish your contribution.
 - Create a pull request. The maintainer will decide to merge it or not.
 
