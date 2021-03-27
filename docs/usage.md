@@ -28,11 +28,12 @@ handler = TA_Handler(
     exchange="EXCHANGE",
     screener="SCREENER",
     interval="INTERVAL"
+    timeout=10 # 10 seconds timeout
 )
 ```
 
 ## What do you need to know
-You need to know the exchange, symbol, screener, and interval to use this library. The following images shows some of them.
+You need to know the exchange, symbol, screener, and interval to use this library. The following images show some of them.
 
 ![](https://raw.githubusercontent.com/deathlyface/python-tradingview-ta/main/images/btcusd-example-annotated.png)
 
@@ -58,7 +59,7 @@ symbol="USDEUR"
 ```
 
 ## Setting the exchange
-An [exchange](https://en.wikipedia.org/wiki/Stock_exchange) (or exchanger, stock exchage, bourse) is a facility where traders can buy/sell their securities.
+An [exchange](https://en.wikipedia.org/wiki/Stock_exchange) (or exchanger, stock exchange, bourse) is a facility where traders can buy/sell their securities.
 
 Example of exchange:
 * Stock: `NASDAQ`, `NYSE`, etc.
@@ -155,8 +156,16 @@ interval=Interval.INTERVAL_1_WEEK
 interval=Interval.INTERVAL_1_MONTH
 ```
 
+## Setting the timeout (optional)
+If you initialize the `TA_Handler` with the `timeout` parameter, you will get an exception if tradingview-ta does not receive any response from the server. In some cases, this feature might be useful.
+
+Timeout is disabled by default, so you must set it manually.
+```python
+timeout=5 # 5 seconds timeout
+```
+
 ## Full example
-The following code shows some example on how to set up the symbol, interval, screener, and interval.
+The following code shows some examples of how to set up the symbol, interval, screener, and interval.
 
 ### Stock
 ```python
@@ -197,7 +206,7 @@ To get the analysis, simply call the `get_analysis()` function.
 analysis = handler.get_analysis()
 ```
 
-The `get_analysis()` function will return an object of `Analysis` class, which store the analysis, time created, ticker symbol, exchange, and screener.
+The `get_analysis()` function will return an object of `Analysis` class, which stores the analysis, time created, ticker symbol, exchange, and screener.
 
 ### Analysis
 There are 3 types of analysis in TradingView: oscillators, moving averages, and summary (which is oscillators and moving averages combined).
@@ -220,10 +229,10 @@ print(analysis.moving_averages)
 # Example output: {'RECOMMENDATION': 'BUY', 'BUY': 9, 'SELL': 5, 'NEUTRAL': 1, 'COMPUTE': {'EMA10': 'SELL', 'SMA10': 'SELL', 'EMA20': 'SELL', 'SMA20': 'SELL', 'EMA30': 'BUY', 'SMA30': 'BUY', 'EMA50': 'BUY', 'SMA50': 'BUY', 'EMA100': 'BUY', 'SMA100': 'BUY', 'EMA200': 'BUY', 'SMA200': 'BUY', 'Ichimoku': 'NEUTRAL', 'VWMA': 'SELL', 'HullMA': 'BUY'}}
 ```
 
-Notice that if we sum the oscillators and the moving averages, we'll get the result similar to the summary.
+Notice that if we sum the oscillators and the moving averages, we'll get a result similar to the summary.
 
 #### P.SAR
-You can get buy/sell/neutral signal from parabolic SAR, but you have to do this manually. I wont add this to get_analysis() unless TradingView add it on their site. 
+You can get a buy/sell/neutral signal from parabolic SAR, but you have to do this manually. I won't add this to get_analysis() unless TradingView adds it on their site. 
 
 ```python
 from tradingview_ta import Compute
@@ -247,7 +256,7 @@ Details about the analysis. Most of them are values that you set previously.
 print(analysis.time)
 # Example output: 2020-07-29 11:57:28.719879
 ```
-`time` is when the get_analysis is called. `time` is a `datetime.datetime` object. The time is your local time.
+`time` is when the get_analysis is called. `time` is a `datetime.datetime` object. The time is in your local time.
 
 #### Symbol
 ```python

@@ -319,4 +319,4 @@ class Compute:
 
 ```
 
-The rest is simple. Compute the data.
+Tradingview-TA will then calculate the data and returns it to the user.
