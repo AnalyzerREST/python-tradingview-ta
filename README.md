@@ -1,4 +1,4 @@
-# python-tradingview-ta [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Documentation Status](https://readthedocs.org/projects/python-tradingview-ta/badge/?version=latest)](https://python-tradingview-ta.readthedocs.io/en/latest/?badge=latest) [![PyPI version](https://badge.fury.io/py/tradingview-ta.svg)](https://badge.fury.io/py/tradingview-ta)
+# python-tradingview-ta [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Documentation Status](https://readthedocs.org/projects/python-tradingview-ta/badge/?version=latest)](https://python-tradingview-ta.readthedocs.io/en/latest/?badge=latest) [![PyPI version](https://img.shields.io/pypi/v/tradingview-ta)](https://pypi.org/project/tradingview-ta/)
  An unofficial python API wrapper to retrieve technical analysis from TradingView.
  
  ![TradingView](https://raw.githubusercontent.com/deathlyface/python-tradingview-ta/main/images/tradingview.png)
