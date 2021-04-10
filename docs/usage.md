@@ -27,7 +27,7 @@ handler = TA_Handler(
     symbol="SYMBOL",
     exchange="EXCHANGE",
     screener="SCREENER",
-    interval="INTERVAL"
+    interval="INTERVAL",
     timeout=10 # 10 seconds timeout
 )
 ```
