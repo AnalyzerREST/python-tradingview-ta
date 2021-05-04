@@ -1,7 +1,7 @@
 # python-tradingview-ta [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Documentation Status](https://readthedocs.org/projects/python-tradingview-ta/badge/?version=latest)](https://python-tradingview-ta.readthedocs.io/en/latest/?badge=latest) [![PyPI version](https://img.shields.io/pypi/v/tradingview-ta)](https://pypi.org/project/tradingview-ta/)
  An unofficial python API wrapper to retrieve technical analysis from TradingView.
  
- ![TradingView](https://raw.githubusercontent.com/deathlyface/python-tradingview-ta/main/images/tradingview.png)
+ ![TradingView](https://raw.githubusercontent.com/brian-the-dev/python-tradingview-ta/main/images/tradingview.png)
 
 ## Note
  The newest version is backward compatible with v3.0.0 or newer. You can still run your old code, but consider rewriting it. Please refer to the [usage guide](https://python-tradingview-ta.readthedocs.io/en/latest/usage.html).
@@ -19,7 +19,7 @@
 * [Indicator values](https://python-tradingview-ta.readthedocs.io/en/latest/usage.html#indicator-values)
 
 ## Demo
-A demo is available on https://tradingview.deathlyf.com/.
+A demo is available on https://tradingview.brianthe.dev/.
 
 ## Requirements
  - Python 3.5 or newer.
@@ -57,7 +57,7 @@ print(tesla.get_analysis().summary)
  Trading (especially using an automated program) is a dangerous activity. Do not use TradingView's analysis to trade automatically without your supervision. I am not responsible for any financial loss.
 
 ## Contributing
- You may fork this repository or submit a pull request. Any pull request (documentation, bug fix, features, etc) are welcomed. Please follow the guidelines [here](https://github.com/deathlyface/python-tradingview-ta/blob/main/CONTRIBUTING.md).
+ You may fork this repository or submit a pull request. Any pull request (documentation, bug fix, features, etc) are welcomed. Please follow the guidelines [here](https://github.com/brian-the-dev/python-tradingview-ta/blob/main/CONTRIBUTING.md).
  
 ## License
  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
