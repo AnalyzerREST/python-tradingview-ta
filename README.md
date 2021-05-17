@@ -4,8 +4,6 @@
  ![TradingView](https://raw.githubusercontent.com/brian-the-dev/python-tradingview-ta/main/images/tradingview.png)
 
 ## Note
- The newest version is backward compatible with v3.0.0 or newer. You can still run your old code, but consider rewriting it. Please refer to the [usage guide](https://python-tradingview-ta.readthedocs.io/en/latest/usage.html).
-
  Please ensure to update to the latest version for new features and bug fixes. `pip install -U tradingview_ta`
  
 ## Other implementations
@@ -16,17 +14,17 @@
 ## Features
 * Fast analysis (compared to v2.5.0 or older)
 * Reputable data sources
-* [Indicator values](https://python-tradingview-ta.readthedocs.io/en/latest/usage.html#indicator-values)
+* Indicators
 
 ## Demo
 A demo is available on https://tradingview.brianthe.dev/.
 
 ## Requirements
  - Python 3.5 or newer.
- - [Requests](https://pypi.org/project/requests/), Included in installation.
+ - [Requests](https://pypi.org/project/requests/), included in installation.
  
 ## Installation
- [Using pip](https://pypi.org/project/tradingview-ta/):
+ [pip](https://pypi.org/project/tradingview-ta/):
  
 ```pip install tradingview_ta```
 
@@ -49,6 +47,8 @@ print(tesla.get_analysis().summary)
 ```
 ## Documentation
  [Read The Docs](https://python-tradingview-ta.readthedocs.io)
+
+ [Mirror (IPFS)](https://tvta-docs.brianthe.dev/)
 
 ## Issue
  Found a bug? Want to ask something? Just create an issue and I'll help you.
