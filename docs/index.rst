@@ -11,5 +11,6 @@ This documentation will help you to understand and use TradingView-TA.
 
     overview.md
     usage.md
+    changelog.rst
     faq.rst
 
