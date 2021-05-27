@@ -130,3 +130,48 @@ Attributes:
             * Momentum: ``analysis.indicators["Mom"]``
             * RSI: ``analysis.indicators["RSI"]``
             * MACD: ``analysis.indicators["MACD.macd"]``
+
+Retrieving multiple analysis
+----------------------------
+
+.. code-block:: python3
+
+    from tradingview_ta import *
+    analysis = get_multiple_analysis(screener="america", interval=Interval.INTERVAL_1_HOUR, symbols=["nasdaq:tsla", "nyse:docn", "nasdaq:aapl"])
+
+.. note::
+
+    You can't mix different screener and interval.
+
+Parameters: 
+
+* symbols (``list``) – List of exchange and ticker symbol separated by a colon. Example: ["NASDAQ:TSLA", "NYSE:DOCN"] or ["BINANCE:BTCUSDT", "BITSTAMP:ETHUSD"].
+* screener (``str``) – Screener (e.g., ``"america"``, ``"indonesia"``, ``"forex"``, ``"crypto"``).
+* timeout (``float``, optional) – How long to wait (in seconds) for the server to return a response.
+* interval (``str``) – Time frame
+  
+    .. note::
+
+        Please see the Interval class for available intervals.
+
+        .. code-block:: python3
+
+            class Interval:
+                INTERVAL_1_MINUTE = "1m"
+                INTERVAL_5_MINUTES = "5m"
+                INTERVAL_15_MINUTES = "15m"
+                INTERVAL_1_HOUR = "1h"
+                INTERVAL_4_HOURS = "4h"
+                INTERVAL_1_DAY = "1d"
+                INTERVAL_1_WEEK = "1W"
+                INTERVAL_1_MONTH = "1M"
+
+.. note::
+    ``get_multiple_analysis()`` returns a dictionary with a format of {"EXCHANGE:SYMBOL": Analysis}.
+
+    .. code-block:: python3
+        
+        # Example
+        {'NYSE:DOCN': <tradingview_ta.main.Analysis object at 0x7f3a5ba49be0>, 'NASDAQ:TSLA': <tradingview_ta.main.Analysis object at 0x7f3a5ba65040>, 'NASDAQ:AAPL': <tradingview_ta.main.Analysis object at 0x7f3a5ba801c0>}
+
+    Please use UPPERCASE letters when accessing the dictionary.
