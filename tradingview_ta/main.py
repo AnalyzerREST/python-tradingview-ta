@@ -293,6 +293,14 @@ class TA_Handler(object):
         return calculate(indicators=indicators, screener=self.screener, symbol=self.symbol, exchange=self.exchange, interval=self.interval)
         
 def get_multiple_analysis(screener, interval, symbols, timeout=None):
+    
+    if screener == "" or type(screener) != str:
+        raise Exception("Screener is empty or not valid.")
+    if len(symbols) == 0 or type(symbols) != list:
+        raise Exception("Symbols is empty or not valid.")
+    for symbol in symbols:
+        if len(symbol.split(":")) != 2 or "" in symbol.split(":"):
+            raise Exception("One or more symbol is invalid. Symbol should be a list of exchange and ticker symbol separated by a colon. Example: [\"NASDAQ:TSLA\", \"NYSE:DOCN\"] or [\"BINANCE:BTCUSDT\", \"BITSTAMP:ETHUSD\"].")
 
     data = TradingView.data(symbols, interval)
     scan_url = f"{TradingView.scan_url}{screener.lower()}/scan"
