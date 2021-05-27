@@ -293,7 +293,17 @@ class TA_Handler(object):
         return calculate(indicators=indicators, screener=self.screener, symbol=self.symbol, exchange=self.exchange, interval=self.interval)
         
 def get_multiple_analysis(screener, interval, symbols, timeout=None):
-    
+    """Retrieve multiple technical analysis at once. Note: You can't mix different screener and interval
+
+    Args:
+        screener (str, required): Screener (see documentation and tradingview's site).   
+        interval (str, optional): See the interval class and the documentation. Defaults to 1 day.
+        symbols (list): List of exchange and ticker symbol separated by a colon. Example: ["NASDAQ:TSLA", "NYSE:DOCN"] or ["BINANCE:BTCUSDT", "BITSTAMP:ETHUSD"].
+        timeout (float, optional): Timeout for requests (in seconds). Defaults to None.
+
+    Returns:
+        dict: dictionary with a format of {"EXCHANGE:SYMBOL": Analysis}.
+    """
     if screener == "" or type(screener) != str:
         raise Exception("Screener is empty or not valid.")
     if len(symbols) == 0 or type(symbols) != list:
