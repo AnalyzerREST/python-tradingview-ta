@@ -102,19 +102,20 @@ class Compute:
         else:
             return Recommendation.neutral
 
-    def AO(ao, ao1):
+    def AO(ao, ao1, ao2):
         """Compute Awesome Oscillator
 
         Args:
             ao (float): AO value
             ao1 (float): AO[1] value
+            ao2 (float): AO[2] value
 
         Returns:
             string: "BUY", "SELL", or "NEUTRAL"
         """
-        if (ao > 0 and ao1 < 0 or ao > 0 and ao1 > 0 and ao > ao1):
+        if (ao > 0 and ao1 < 0) or (ao > 0 and ao1 > 0 and ao > ao1 and ao2 > ao1):
             return Recommendation.buy
-        elif (ao < 0 and ao1 > 0 or ao < 0 and ao1 < 0 and ao < ao1):
+        elif (ao < 0 and ao1 > 0) or (ao < 0 and ao1 < 0 and ao < ao1 and ao2 < ao1):
             return Recommendation.sell
         else:
             return Recommendation.neutral
@@ -209,15 +210,15 @@ class Compute:
         Returns:
             string: "STRONG_BUY", "BUY", "NEUTRAL", "SELL", "STRONG_SELL", or "ERROR"
         """
-        if (value >= -1 and value < -.5):
+        if value >= -1 and value < -.5:
             return Recommendation.strong_sell
-        elif (value >= -.5 and value < 0):
+        elif value >= -.5 and value < -.1:
             return Recommendation.sell
-        elif (value == 0):
+        elif value >= -.1 and value <= .1:
             return Recommendation.neutral
-        elif (value > 0 and value <= .5):
+        elif value > .1 and value <= .5 :
             return Recommendation.buy
-        elif (value > .5 and value <= 1):
+        elif value > .5 and value <= 1:
             return Recommendation.strong_buy
         else:
             return Recommendation.error
