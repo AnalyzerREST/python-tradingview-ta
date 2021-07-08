@@ -35,8 +35,7 @@ class Exchange:
 
 class TradingView:
     scan_url = "https://scanner.tradingview.com/"
-    indicators = ["Recommend.Other{}","Recommend.All{}","Recommend.MA{}","RSI{}","RSI[1]{}","Stoch.K{}","Stoch.D{}","Stoch.K[1]{}","Stoch.D[1]{}","CCI20{}","CCI20[1]{}","ADX{}","ADX+DI{}","ADX-DI{}","ADX+DI[1]{}","ADX-DI[1]{}","AO{}","AO[1]{}","Mom{}","Mom[1]{}","MACD.macd{}","MACD.signal{}","Rec.Stoch.RSI{}","Stoch.RSI.K{}","Rec.WR{}","W.R{}","Rec.BBPower{}","BBPower{}","Rec.UO{}","UO{}","close{}","EMA5{}","SMA5{}","EMA10{}","SMA10{}","EMA20{}","SMA20{}","EMA30{}","SMA30{}","EMA50{}","SMA50{}","EMA100{}","SMA100{}","EMA200{}","SMA200{}","Rec.Ichimoku{}","Ichimoku.BLine{}","Rec.VWMA{}","VWMA{}","Rec.HullMA9{}","HullMA9{}","Pivot.M.Classic.S3{}","Pivot.M.Classic.S2{}","Pivot.M.Classic.S1{}","Pivot.M.Classic.Middle{}","Pivot.M.Classic.R1{}","Pivot.M.Classic.R2{}","Pivot.M.Classic.R3{}","Pivot.M.Fibonacci.S3{}","Pivot.M.Fibonacci.S2{}","Pivot.M.Fibonacci.S1{}","Pivot.M.Fibonacci.Middle{}","Pivot.M.Fibonacci.R1{}","Pivot.M.Fibonacci.R2{}","Pivot.M.Fibonacci.R3{}","Pivot.M.Camarilla.S3{}","Pivot.M.Camarilla.S2{}","Pivot.M.Camarilla.S1{}","Pivot.M.Camarilla.Middle{}","Pivot.M.Camarilla.R1{}","Pivot.M.Camarilla.R2{}","Pivot.M.Camarilla.R3{}","Pivot.M.Woodie.S3{}","Pivot.M.Woodie.S2{}","Pivot.M.Woodie.S1{}","Pivot.M.Woodie.Middle{}","Pivot.M.Woodie.R1{}","Pivot.M.Woodie.R2{}","Pivot.M.Woodie.R3{}","Pivot.M.Demark.S1{}","Pivot.M.Demark.Middle{}","Pivot.M.Demark.R1{}", "open{}", "P.SAR{}", "BB.lower{}", "BB.upper{}", "AO[2]{}"]
-    def data(symbols, interval):
+    def data(symbols, interval, indicators):
         """Format TradingView's Scanner Post Data
 
         Args:
@@ -73,13 +72,15 @@ class TradingView:
             # Default, 1 Day
             data_interval = ""
             
-        data_json = {"symbols":{"tickers":[symbol.upper() for symbol in symbols],"query":{"types":[]}},"columns":[x.format(data_interval) for x in TradingView.indicators]}
+        data_json = {"symbols":{"tickers":[symbol.upper() for symbol in symbols],"query":{"types":[]}},"columns":[x + data_interval for x in indicators]}
 
         return data_json
 
-def calculate(indicators, screener, symbol, exchange, interval):
+def calculate(indicators, indicators_key, screener, symbol, exchange, interval):
     oscillators_counter, ma_counter = {"BUY": 0, "SELL": 0, "NEUTRAL": 0}, {"BUY": 0, "SELL": 0, "NEUTRAL": 0}
     computed_oscillators, computed_ma = {}, {}
+
+    indicators = list(indicators.values())
 
     # RECOMMENDATIONS
     recommend_oscillators = Compute.Recommend(indicators[0])
@@ -164,7 +165,7 @@ def calculate(indicators, screener, symbol, exchange, interval):
     analysis.time = datetime.datetime.now()
 
     for x in range(len(indicators)):
-        analysis.indicators[TradingView.indicators[x].format("")] = indicators[x]
+        analysis.indicators[indicators_key[x].format("")] = indicators[x]
 
     analysis.indicators = analysis.indicators.copy()
 
@@ -180,6 +181,9 @@ class TA_Handler(object):
     symbol = ""
     interval = ""
     timeout = None
+
+    # Note: Please DO NOT modify the order or DELETE existing indicators, it will break the technical analysis. You may APPEND custom indicator to the END of the list.
+    indicators = ["Recommend.Other","Recommend.All","Recommend.MA","RSI","RSI[1]","Stoch.K","Stoch.D","Stoch.K[1]","Stoch.D[1]","CCI20","CCI20[1]","ADX","ADX+DI","ADX-DI","ADX+DI[1]","ADX-DI[1]","AO","AO[1]","Mom","Mom[1]","MACD.macd","MACD.signal","Rec.Stoch.RSI","Stoch.RSI.K","Rec.WR","W.R","Rec.BBPower","BBPower","Rec.UO","UO","close","EMA5","SMA5","EMA10","SMA10","EMA20","SMA20","EMA30","SMA30","EMA50","SMA50","EMA100","SMA100","EMA200","SMA200","Rec.Ichimoku","Ichimoku.BLine","Rec.VWMA","VWMA","Rec.HullMA9","HullMA9","Pivot.M.Classic.S3","Pivot.M.Classic.S2","Pivot.M.Classic.S1","Pivot.M.Classic.Middle","Pivot.M.Classic.R1","Pivot.M.Classic.R2","Pivot.M.Classic.R3","Pivot.M.Fibonacci.S3","Pivot.M.Fibonacci.S2","Pivot.M.Fibonacci.S1","Pivot.M.Fibonacci.Middle","Pivot.M.Fibonacci.R1","Pivot.M.Fibonacci.R2","Pivot.M.Fibonacci.R3","Pivot.M.Camarilla.S3","Pivot.M.Camarilla.S2","Pivot.M.Camarilla.S1","Pivot.M.Camarilla.Middle","Pivot.M.Camarilla.R1","Pivot.M.Camarilla.R2","Pivot.M.Camarilla.R3","Pivot.M.Woodie.S3","Pivot.M.Woodie.S2","Pivot.M.Woodie.S1","Pivot.M.Woodie.Middle","Pivot.M.Woodie.R1","Pivot.M.Woodie.R2","Pivot.M.Woodie.R3","Pivot.M.Demark.S1","Pivot.M.Demark.Middle","Pivot.M.Demark.R1", "open", "P.SAR", "BB.lower", "BB.upper", "AO[2]", "volume"]
 
     def __init__(self, screener="", exchange="", symbol="", interval="", timeout=None):
         """Create an instance of TA_Handler class
@@ -197,7 +201,7 @@ class TA_Handler(object):
         self.interval = interval
         self.timeout = timeout
 
-    #Set functions
+    # Set functions
     def set_screener_as_stock(self, country):
         """Set the screener as a country (for stocks). 
 
@@ -260,13 +264,18 @@ class TA_Handler(object):
         """
         self.symbol = symbol
 
-    #Get analysis
-    def get_analysis(self):
-        """Get analysis from TradingView and compute it.
+    def get_indicators(self, indicators=[]):
+        """Just the indicators, please. See valid indicators on https://pastebin.com/1DjWv2Hd.
+
+        Args:
+            indicators (list, optional): List of string of indicators (ex: ["RSI7", "open"]). Defaults to self.indicators.
 
         Returns:
-            Analysis: Contains information about the analysis.
+            dict: A dictionary with a format of {"indicator": value}.
         """
+        if len(indicators) == 0:
+            indicators = self.indicators
+
         if self.screener == "" or type(self.screener) != str:
             raise Exception("Screener is empty or not valid.")
         elif self.exchange == "" or type(self.exchange) != str:
@@ -275,7 +284,7 @@ class TA_Handler(object):
             raise Exception("Symbol is empty or not valid.")
 
         exchange_symbol = f"{self.exchange}:{self.symbol}"
-        data = TradingView.data([exchange_symbol], self.interval)
+        data = TradingView.data([exchange_symbol], self.interval, indicators)
         scan_url = f"{TradingView.scan_url}{self.screener.lower()}/scan"
         headers = {"User-Agent": "tradingview_ta/{}".format(__version__)}
         response = requests.post(scan_url,json=data, headers=headers, timeout=self.timeout)
@@ -286,11 +295,31 @@ class TA_Handler(object):
         
         result = json.loads(response.text)["data"]
         if result != []:
-            indicators = result[0]["d"]
+            indicators_val = {}
+            for x in range(len(indicators)):
+                indicators_val[indicators[x]] = result[0]["d"][x]
+            return indicators_val
         else:
             raise Exception("Exchange or symbol not found.")
 
-        return calculate(indicators=indicators, screener=self.screener, symbol=self.symbol, exchange=self.exchange, interval=self.interval)
+    # Add custom indicators
+    def add_indicators(self, indicators):
+        """Add custom indicators. See valid indicators on https://pastebin.com/1DjWv2Hd.
+
+        Args:
+            indicators (list): List of strings of indicators. (ex: ["RSI7", "VWMA"])
+        """
+        self.indicators.append(indicators)
+
+    # Get analysis
+    def get_analysis(self):
+        """Get analysis from TradingView and compute it.
+
+        Returns:
+            Analysis: Contains information about the analysis.
+        """
+
+        return calculate(indicators=self.get_indicators(), indicators_key=self.indicators, screener=self.screener, symbol=self.symbol, exchange=self.exchange, interval=self.interval)
         
 def get_multiple_analysis(screener, interval, symbols, timeout=None):
     """Retrieve multiple technical analysis at once. Note: You can't mix different screener and interval
