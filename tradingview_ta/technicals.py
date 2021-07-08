@@ -39,9 +39,9 @@ class Compute:
         Returns:
             string: "BUY", "SELL", or "NEUTRAL"
         """
-        if (rsi < 30 and rsi1 > rsi):
+        if (rsi < 30 and rsi1 < rsi):
             return Recommendation.buy
-        elif (rsi > 70 and rsi1 < rsi):
+        elif (rsi > 70 and rsi1 > rsi):
             return Recommendation.sell
         else:
             return Recommendation.neutral
