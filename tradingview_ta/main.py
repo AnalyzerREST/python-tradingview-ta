@@ -291,7 +291,7 @@ class TA_Handler(object):
 
         # Return False if can't get data
         if response.status_code != 200:
-            raise Exception("Can't access TradingView's API. HTTP status code: {}.".format(response.status_code))
+            raise Exception("Can't access TradingView's API. HTTP status code: {}. Check for invalid symbol, exchange, or indicators.".format(response.status_code))
         
         result = json.loads(response.text)["data"]
         if result != []:
