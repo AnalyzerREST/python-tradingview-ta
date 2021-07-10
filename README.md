@@ -17,7 +17,7 @@
 * Indicators
 
 ## Demo
-A demo is available on https://tradingview.brianthe.dev/.
+You can try tradingview-ta online without installing Python: https://tradingview.brianthe.dev/.
 
 ## Requirements
  - Python 3.5 or newer.
@@ -45,6 +45,8 @@ tesla = TA_Handler(
 print(tesla.get_analysis().summary)
 # Example output: {"RECOMMENDATION": "BUY", "BUY": 8, "NEUTRAL": 6, "SELL": 3}
 ```
+Tip: Use https://tvdb.brianthe.dev/ if you don't know what symbol, screener, and exchange to use.
+
 ## Documentation
  [Read The Docs](https://python-tradingview-ta.readthedocs.io)
 
