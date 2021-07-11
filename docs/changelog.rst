@@ -1,6 +1,30 @@
 Changelog
 =========
 
+3.2.5
+-----
+
+New:
+
+* Retrieve indicators ``TA_Handler.get_indicators()``
+* Add custom indicators ``TA_Handler.add_indicators()``
+* Indicators: volume
+
+Bug fix:
+
+* Update RSI algorithms
+
+3.2.4
+-----
+
+New:
+
+* Retrieve multiple analysis
+
+Bug fix:
+
+* Update compute algorithms
+
 3.2.3
 -----
 
