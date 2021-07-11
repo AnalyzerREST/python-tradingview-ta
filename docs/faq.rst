@@ -79,3 +79,10 @@ How does TradingView_TA works?
 A simple network inspection on TradingView's website revealed that the data is retrieved through an `undocumented API <https://scanner.tradingview.com/america/scan>`_.
 
 TradingView_TA works by calculating similar data using `algorithms <https://github.com/brian-the-dev/python-tradingview-ta/blob/main/tradingview_ta/technicals.py>`_ reverse-engineered from their `JavaScript code <https://gist.github.com/brian-the-dev/f0bb91658c1f161cafe8990db1473bd6>`_.
+
+Why do I get 4XX error?
+-----------------------
+
+400 error indicates that the request is invalid. Usually, this is caused when the indicators does not exist. See https://pastebin.com/1DjWv2Hd for valid indicators.
+
+404 error indicates that the webpage does not exist. Usually, this is caused when the screener does not exist. Check if the screener, symbol, and exchange are correct using this tool: https://tvdb.brianthe.dev.
