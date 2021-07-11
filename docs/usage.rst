@@ -40,9 +40,9 @@ Parameters:
 
     .. tip::
 
-        You can search on TradingView's website to see which symbol, exchange, and screener to use.
+        You can search on https://tvdb.brianthe.dev to see which symbol, exchange, and screener to use.
 
-        .. image:: https://raw.githubusercontent.com/brian-the-dev/python-tradingview-ta/main/images/tradingview-search.png
+        .. image:: https://raw.githubusercontent.com/brian-the-dev/python-tradingview-ta/main/images/tv-list.png
 
     * symbol (``str``) – Ticker symbol (e.g., ``"AAPL"``, ``"TLKM"``, ``"USDEUR"``, ``"BTCUSDT"``).
     * exchange (``str``) – Exchange (e.g., ``"nasdaq"``, ``"idx"``, ``Exchange.FOREX``, ``"binance"``).
