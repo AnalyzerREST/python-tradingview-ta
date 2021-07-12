@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='tradingview_ta',
-    version='3.2.5',
+    version='3.2.6',
     description="Unofficial TradingView technical analysis API wrapper.",
     long_description=long_description,
     long_description_content_type="text/markdown",
