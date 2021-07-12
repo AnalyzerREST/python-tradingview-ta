@@ -1,5 +1,5 @@
 from colorama import Fore, Style
-from tradingview_ta import TA_Handler, Interval
+from tradingview_ta import TA_Handler, Interval, get_multiple_analysis
 import tradingview_ta, requests
 
 print("------------------------------------------------")
@@ -7,7 +7,7 @@ print("Testing {}Tradingview-TA{} v{}{}".format(Fore.CYAN, Fore.MAGENTA, trading
 print("This test is {}semi-automatic{}. Please compare with tradingview's data manually.".format(Fore.LIGHTRED_EX, Style.RESET_ALL))
 print("------------------------------------------------")
 
-COUNT = 5
+COUNT = 7
 success = 0
 
 print("{}#0{} {}Testing invalid symbol{}".format(Fore.BLUE, Style.RESET_ALL, Fore.LIGHTBLUE_EX, Style.RESET_ALL))
@@ -102,6 +102,38 @@ try:
 except Exception as e:
     print("{}#4{} Stock test {}failed{}. An exception occured: {}".format(Fore.BLUE, Style.RESET_ALL, Fore.RED, Style.RESET_ALL, e))
 
+print("{}#5{} {}Testing multiple analysis (NASDAQ:TSLA and NYSE:DOCN){}".format(Fore.BLUE, Style.RESET_ALL, Fore.LIGHTBLUE_EX, Style.RESET_ALL))
+try:
+    analysis = get_multiple_analysis(screener="america", interval=Interval.INTERVAL_1_HOUR, symbols=["nasdaq:tsla", "nyse:docn"])
+    for key, value in analysis.items():
+        print("{}#5{} Please compare with {}https://www.tradingview.com/symbols/{}/technicals/{}. (Switch to 1 hour tab)".format(Fore.BLUE, Style.RESET_ALL, Fore.LIGHTMAGENTA_EX, key, Style.RESET_ALL))
+        print("{}#5{} (Summary) Rec: {}, Sell: {}, Neutral: {}, Buy: {}".format(Fore.BLUE, Style.RESET_ALL, value.summary["RECOMMENDATION"], value.summary["SELL"], value.summary["NEUTRAL"], value.summary["BUY"]))
+    if input("{}#5{} Are the results the same? (Y/N) ".format(Fore.BLUE, Style.RESET_ALL)).lower() == "y":
+        print("{}#5{} Multiple analysis test {}success{}.".format(Fore.BLUE, Style.RESET_ALL, Fore.GREEN, Style.RESET_ALL))
+        success += 1
+    else:
+        print("{}#5{} Multiple analysis test {}failed{}".format(Fore.BLUE, Style.RESET_ALL, Fore.RED, Style.RESET_ALL))
+except Exception as e:
+    print("{}#5{} Multiple analysis test {}failed{}. An exception occured: {}".format(Fore.BLUE, Style.RESET_ALL, Fore.RED, Style.RESET_ALL, e))
+
+print("{}#6{} {}Testing get indicators (BINANCE:BTCUSDT){}".format(Fore.BLUE, Style.RESET_ALL, Fore.LIGHTBLUE_EX, Style.RESET_ALL))
+handler = TA_Handler(
+    symbol="BTCUSDT",
+    interval=Interval.INTERVAL_1_DAY,
+    screener="crypto",
+    exchange="binance"
+)
+try:
+    print("{}#6{} Please compare with {}https://www.tradingview.com/symbols/BINANCE:BTCUSDT/technicals/{}. (Check for indicators)".format(Fore.BLUE, Style.RESET_ALL, Fore.LIGHTMAGENTA_EX, Style.RESET_ALL))
+    print("{}#6{} {}".format(Fore.BLUE, Style.RESET_ALL, handler.get_indicators()))
+    if input("{}#6{} Are the results the same? (Y/N) ".format(Fore.BLUE, Style.RESET_ALL)).lower() == "y":
+        print("{}#6{} Get indicators test {}success{}.".format(Fore.BLUE, Style.RESET_ALL, Fore.GREEN, Style.RESET_ALL))
+        success += 1
+    else:
+        print("{}#6{} Get indicators test {}failed{}".format(Fore.BLUE, Style.RESET_ALL, Fore.RED, Style.RESET_ALL))
+except Exception as e:
+    print("{}#6{} Get indicators test {}failed{}. An exception occured: {}".format(Fore.BLUE, Style.RESET_ALL, Fore.RED, Style.RESET_ALL, e))
+
 
 print("------------------------------------------------")
-print("Test finished. Result: {}{}/{}{}.".format(Fore.LIGHTWHITE_EX ,success, COUNT, Style.RESET_ALL))
+print("Test finished. Result: {}{}/{}{}.".format(Fore.LIGHTWHITE_EX, success, COUNT, Style.RESET_ALL))
