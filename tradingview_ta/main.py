@@ -312,7 +312,7 @@ class TA_Handler(object):
         Args:
             indicators (list): List of strings of indicators. (ex: ["RSI7", "VWMA"])
         """
-        self.indicators.append(indicators)
+        self.indicators += indicators
 
     # Get analysis
     def get_analysis(self):
