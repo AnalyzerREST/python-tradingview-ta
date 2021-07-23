@@ -20,7 +20,7 @@
 You can try tradingview-ta online without installing Python: https://tradingview.brianthe.dev/.
 
 ## Requirements
- - Python 3.5 or newer.
+ - Python 3.6 or newer.
  - [Requests](https://pypi.org/project/requests/), included in installation.
  
 ## Installation
