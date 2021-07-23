@@ -21,7 +21,7 @@ setuptools.setup(
     install_requires=[
           'requests',
     ],
-    python_requires='>=3.5',
+    python_requires='>=3.6',
     project_urls={
         'Demo': 'https://tradingview.brianthe.dev',
         'Documentation': 'https://python-tradingview-ta.readthedocs.io',
