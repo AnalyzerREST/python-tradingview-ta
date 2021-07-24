@@ -87,9 +87,12 @@ def calculate(indicators, indicators_key, screener, symbol, exchange, interval):
     indicators = list(indicators.values())
 
     # RECOMMENDATIONS
-    recommend_oscillators = Compute.Recommend(indicators[0])
-    recommend_summary = Compute.Recommend(indicators[1])
-    recommend_moving_averages = Compute.Recommend(indicators[2])
+    if None not in indicators[0:2]:
+        recommend_oscillators = Compute.Recommend(indicators[0])
+        recommend_summary = Compute.Recommend(indicators[1])
+        recommend_moving_averages = Compute.Recommend(indicators[2])
+    else:
+        return None
 
     # OSCILLATORS
     # RSI (14)
@@ -361,5 +364,10 @@ def get_multiple_analysis(screener, interval, symbols, timeout=None):
             indicators[indicators_key[x]] = analysis["d"][x]
         
         final[analysis["s"]] = calculate(indicators=indicators, indicators_key=indicators_key, screener=screener, symbol=analysis["s"].split(":")[1], exchange=analysis["s"].split(":")[0], interval=interval)
+
+    for symbol in symbols:
+        # Add None if there is no analysis for symbol
+        if symbol.upper() not in final:
+            final[symbol.upper()] = None
 
     return final
