@@ -175,3 +175,10 @@ Parameters:
         {'NYSE:DOCN': <tradingview_ta.main.Analysis object at 0x7f3a5ba49be0>, 'NASDAQ:TSLA': <tradingview_ta.main.Analysis object at 0x7f3a5ba65040>, 'NASDAQ:AAPL': <tradingview_ta.main.Analysis object at 0x7f3a5ba801c0>}
 
     Please use UPPERCASE letters when accessing the dictionary.
+
+    If there is no analysis for a certain symbol, ``Analysis`` will be replaced with a ``None``. For example, ``BINANCE:DEXEUSDT`` does not have an analysis, but ``BINANCE:BTCUSDT`` has:
+
+    .. code-block:: python3
+
+        # Example
+        {'BINANCE:DEXEUSDT': None, 'BINANCE:BTCUSDT': <tradingview_ta.main.Analysis object at 0x7f3561cdeb20>}
