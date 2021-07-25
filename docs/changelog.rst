@@ -1,6 +1,21 @@
 Changelog
 =========
 
+3.2.7
+-----
+
+Bug fix:
+
+* ``get_multiple_analysis()`` will now return ``None`` if there is no analysis for a certain symbol. See `#55 <https://github.com/brian-the-dev/python-tradingview-ta/issues/55>`_ for more details.
+
+3.2.6
+-----
+
+Bug fix:
+
+* Add indicators
+* Get multiple analysis
+
 3.2.5
 -----
 
