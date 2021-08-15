@@ -11,6 +11,7 @@ Importing TradingView_TA
 .. code-block:: python3
 
     from tradingview_ta import TA_Handler, Interval, Exchange
+    import tradingview_ta
 
 
 Checking the version
