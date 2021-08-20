@@ -35,7 +35,7 @@ class Exchange:
 
 class TradingView:
     # Note: Please DO NOT modify the order or DELETE existing indicators, it will break the technical analysis. You may APPEND custom indicator to the END of the list.
-    indicators = ["Recommend.Other","Recommend.All","Recommend.MA","RSI","RSI[1]","Stoch.K","Stoch.D","Stoch.K[1]","Stoch.D[1]","CCI20","CCI20[1]","ADX","ADX+DI","ADX-DI","ADX+DI[1]","ADX-DI[1]","AO","AO[1]","Mom","Mom[1]","MACD.macd","MACD.signal","Rec.Stoch.RSI","Stoch.RSI.K","Rec.WR","W.R","Rec.BBPower","BBPower","Rec.UO","UO","close","EMA5","SMA5","EMA10","SMA10","EMA20","SMA20","EMA30","SMA30","EMA50","SMA50","EMA100","SMA100","EMA200","SMA200","Rec.Ichimoku","Ichimoku.BLine","Rec.VWMA","VWMA","Rec.HullMA9","HullMA9","Pivot.M.Classic.S3","Pivot.M.Classic.S2","Pivot.M.Classic.S1","Pivot.M.Classic.Middle","Pivot.M.Classic.R1","Pivot.M.Classic.R2","Pivot.M.Classic.R3","Pivot.M.Fibonacci.S3","Pivot.M.Fibonacci.S2","Pivot.M.Fibonacci.S1","Pivot.M.Fibonacci.Middle","Pivot.M.Fibonacci.R1","Pivot.M.Fibonacci.R2","Pivot.M.Fibonacci.R3","Pivot.M.Camarilla.S3","Pivot.M.Camarilla.S2","Pivot.M.Camarilla.S1","Pivot.M.Camarilla.Middle","Pivot.M.Camarilla.R1","Pivot.M.Camarilla.R2","Pivot.M.Camarilla.R3","Pivot.M.Woodie.S3","Pivot.M.Woodie.S2","Pivot.M.Woodie.S1","Pivot.M.Woodie.Middle","Pivot.M.Woodie.R1","Pivot.M.Woodie.R2","Pivot.M.Woodie.R3","Pivot.M.Demark.S1","Pivot.M.Demark.Middle","Pivot.M.Demark.R1", "open", "P.SAR", "BB.lower", "BB.upper", "AO[2]", "volume"]
+    indicators = ["Recommend.Other","Recommend.All","Recommend.MA","RSI","RSI[1]","Stoch.K","Stoch.D","Stoch.K[1]","Stoch.D[1]","CCI20","CCI20[1]","ADX","ADX+DI","ADX-DI","ADX+DI[1]","ADX-DI[1]","AO","AO[1]","Mom","Mom[1]","MACD.macd","MACD.signal","Rec.Stoch.RSI","Stoch.RSI.K","Rec.WR","W.R","Rec.BBPower","BBPower","Rec.UO","UO","close","EMA5","SMA5","EMA10","SMA10","EMA20","SMA20","EMA30","SMA30","EMA50","SMA50","EMA100","SMA100","EMA200","SMA200","Rec.Ichimoku","Ichimoku.BLine","Rec.VWMA","VWMA","Rec.HullMA9","HullMA9","Pivot.M.Classic.S3","Pivot.M.Classic.S2","Pivot.M.Classic.S1","Pivot.M.Classic.Middle","Pivot.M.Classic.R1","Pivot.M.Classic.R2","Pivot.M.Classic.R3","Pivot.M.Fibonacci.S3","Pivot.M.Fibonacci.S2","Pivot.M.Fibonacci.S1","Pivot.M.Fibonacci.Middle","Pivot.M.Fibonacci.R1","Pivot.M.Fibonacci.R2","Pivot.M.Fibonacci.R3","Pivot.M.Camarilla.S3","Pivot.M.Camarilla.S2","Pivot.M.Camarilla.S1","Pivot.M.Camarilla.Middle","Pivot.M.Camarilla.R1","Pivot.M.Camarilla.R2","Pivot.M.Camarilla.R3","Pivot.M.Woodie.S3","Pivot.M.Woodie.S2","Pivot.M.Woodie.S1","Pivot.M.Woodie.Middle","Pivot.M.Woodie.R1","Pivot.M.Woodie.R2","Pivot.M.Woodie.R3","Pivot.M.Demark.S1","Pivot.M.Demark.Middle","Pivot.M.Demark.R1", "open", "P.SAR", "BB.lower", "BB.upper", "AO[2]", "volume", "change", "low", "high"]
 
     scan_url = "https://scanner.tradingview.com/"
 
@@ -75,7 +75,7 @@ class TradingView:
                 warnings.warn("Interval is empty or not valid, defaulting to 1 day.")
             # Default, 1 Day
             data_interval = ""
-            
+
         data_json = {"symbols":{"tickers":[symbol.upper() for symbol in symbols],"query":{"types":[]}},"columns":[x + data_interval for x in indicators]}
 
         return data_json
@@ -149,7 +149,7 @@ def calculate(indicators, indicators_key, screener, symbol, exchange, interval):
             computed_ma[ma_list[ma_list_counter]] = Compute.MA(indicators[index], close)
             ma_counter[computed_ma[ma_list[ma_list_counter]]] += 1
             ma_list_counter += 1
-        
+
     # MOVING AVERAGES, pt 2
     # ICHIMOKU
     if indicators[45] != None:
@@ -209,7 +209,7 @@ class TA_Handler(object):
 
     # Set functions
     def set_screener_as_stock(self, country):
-        """Set the screener as a country (for stocks). 
+        """Set the screener as a country (for stocks).
 
         Args:
             country (string): Stock's country (ex: If NFLX or AAPL, then "america" is the screener)
@@ -243,7 +243,7 @@ class TA_Handler(object):
         """Set the exchange as FX_IDC for forex.
         """
         self.exchange = "FX_IDC"
-    
+
     def set_exchange_as_cfd(self):
         """Set the exchange as TVC for cfd.
         """
@@ -255,7 +255,7 @@ class TA_Handler(object):
         Refer to: https://python-tradingview-ta.readthedocs.io/en/latest/usage.html#setting-the-interval
 
         Args:
-            intvl (string): interval. You can use values from the Interval class. 
+            intvl (string): interval. You can use values from the Interval class.
 
         """
         self.interval = intvl
@@ -298,7 +298,7 @@ class TA_Handler(object):
         # Return False if can't get data
         if response.status_code != 200:
             raise Exception("Can't access TradingView's API. HTTP status code: {}. Check for invalid symbol, exchange, or indicators.".format(response.status_code))
-        
+
         result = json.loads(response.text)["data"]
         if result != []:
             indicators_val = {}
@@ -326,12 +326,12 @@ class TA_Handler(object):
         """
 
         return calculate(indicators=self.get_indicators(), indicators_key=self.indicators, screener=self.screener, symbol=self.symbol, exchange=self.exchange, interval=self.interval)
-        
+
 def get_multiple_analysis(screener, interval, symbols, timeout=None):
     """Retrieve multiple technical analysis at once. Note: You can't mix different screener and interval
 
     Args:
-        screener (str, required): Screener (see documentation and tradingview's site).   
+        screener (str, required): Screener (see documentation and tradingview's site).
         interval (str, optional): See the interval class and the documentation. Defaults to 1 day.
         symbols (list): List of exchange and ticker symbol separated by a colon. Example: ["NASDAQ:TSLA", "NYSE:DOCN"] or ["BINANCE:BTCUSDT", "BITSTAMP:ETHUSD"].
         timeout (float, optional): Timeout for requests (in seconds). Defaults to None.
@@ -362,7 +362,7 @@ def get_multiple_analysis(screener, interval, symbols, timeout=None):
         indicators = {}
         for x in range(len(analysis["d"])):
             indicators[indicators_key[x]] = analysis["d"][x]
-        
+
         final[analysis["s"]] = calculate(indicators=indicators, indicators_key=indicators_key, screener=screener, symbol=analysis["s"].split(":")[1], exchange=analysis["s"].split(":")[0], interval=interval)
 
     for symbol in symbols:
