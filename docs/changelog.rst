@@ -1,6 +1,13 @@
 Changelog
 =========
 
+3.2.8
+-----
+
+New:
+
+* Indicators: change, low, high
+
 3.2.7
 -----
 

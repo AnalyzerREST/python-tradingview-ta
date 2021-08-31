@@ -5,7 +5,7 @@
 import requests, json, datetime, warnings
 from .technicals import Compute
 
-__version__ = "3.2.7"
+__version__ = "3.2.8"
 
 class Analysis(object):
     exchange = ""
