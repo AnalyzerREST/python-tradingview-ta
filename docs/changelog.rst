@@ -1,6 +1,13 @@
 Changelog
 =========
 
+3.2.9
+-----
+
+New:
+
+* Interval: 30 minutes and 2 hours
+
 3.2.8
 -----
 
