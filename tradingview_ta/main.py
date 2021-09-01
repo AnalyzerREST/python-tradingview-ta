@@ -22,7 +22,9 @@ class Interval:
     INTERVAL_1_MINUTE = "1m"
     INTERVAL_5_MINUTES = "5m"
     INTERVAL_15_MINUTES = "15m"
+    INTERVAL_30_MINUTES = "30m"
     INTERVAL_1_HOUR = "1h"
+    INTERVAL_2_HOURS = "2h"
     INTERVAL_4_HOURS = "4h"
     INTERVAL_1_DAY = "1d"
     INTERVAL_1_WEEK = "1W"
@@ -58,9 +60,15 @@ class TradingView:
         elif interval == "15m":
             # 15 Minutes
             data_interval = "|15"
+        elif interval == "30m":
+            # 30 Minutes
+            data_interval = "|30"
         elif interval == "1h":
             # 1 Hour
             data_interval = "|60"
+        elif interval == "2h":
+            # 2 Hours
+            data_interval = "|120"
         elif interval == "4h":
             # 4 Hour
             data_interval = "|240"
