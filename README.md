@@ -45,6 +45,25 @@ tesla = TA_Handler(
 print(tesla.get_analysis().summary)
 # Example output: {"RECOMMENDATION": "BUY", "BUY": 8, "NEUTRAL": 6, "SELL": 3}
 ```
+
+```python
+from tradingview_ta import TA_Handler, Interval, Exchange
+proxies = {'http': 'http:your proxy:8080',
+           'https':'http:your proxy:8080'}
+
+tesla = TA_Handler(
+    symbol="TSLA",
+    screener="america",
+    exchange="NASDAQ",
+    interval=Interval.INTERVAL_1_DAY,
+    proxies = proxies
+)
+print(tesla.get_analysis().summary)
+# Example output: {"RECOMMENDATION": "BUY", "BUY": 8, "NEUTRAL": 6, "SELL": 3}
+```
+
+
+
 Tip: Use https://tvdb.brianthe.dev/ if you don't know what symbol, screener, and exchange to use.
 
 ## Documentation
