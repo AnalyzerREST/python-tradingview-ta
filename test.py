@@ -2,6 +2,10 @@ from colorama import Fore, Style
 from tradingview_ta import TA_Handler, Interval, get_multiple_analysis
 import tradingview_ta, requests
 
+proxies = {'http': 'http://127.0.0.1:7890',
+           'https':'http://127.0.0.1:7890'}
+
+
 print("------------------------------------------------")
 print("Testing {}Tradingview-TA{} v{}{}".format(Fore.CYAN, Fore.MAGENTA, tradingview_ta.__version__, Style.RESET_ALL))
 print("This test is {}semi-automatic{}. Please compare with tradingview's data manually.".format(Fore.LIGHTRED_EX, Style.RESET_ALL))
@@ -15,7 +19,8 @@ handler = TA_Handler(
     symbol="ThisSymbolIsInvalid",
     interval="1m",
     screener="america",
-    exchange="NASDAQ"
+    exchange="NASDAQ",
+    proxies = proxies
 )
 try:
     analysis = handler.get_analysis()
@@ -34,7 +39,8 @@ handler = TA_Handler(
     symbol="TSLA",
     interval="1m",
     screener="america",
-    exchange="binance"
+    exchange="binance",
+    proxies = proxies
 )
 try:
     analysis = handler.get_analysis()
@@ -53,7 +59,8 @@ handler = TA_Handler(
     interval=Interval.INTERVAL_1_DAY,
     screener="america",
     exchange="NASDAQ",
-    timeout=0.0001
+    timeout=0.0001,
+    proxies = proxies
 )
 try:
     analysis = handler.get_analysis()
@@ -70,7 +77,8 @@ handler = TA_Handler(
     symbol="TSLA",
     interval="1 minute",
     screener="america",
-    exchange="NASDAQ"
+    exchange="NASDAQ",
+    proxies = proxies
 )
 try:
     analysis = handler.get_analysis()
@@ -88,7 +96,8 @@ handler = TA_Handler(
     symbol="AAPL",
     interval=Interval.INTERVAL_1_DAY,
     screener="america",
-    exchange="NASDAQ"
+    exchange="NASDAQ",
+    proxies = proxies
 )
 try:
     analysis = handler.get_analysis()
@@ -121,7 +130,8 @@ handler = TA_Handler(
     symbol="BTCUSDT",
     interval=Interval.INTERVAL_1_DAY,
     screener="crypto",
-    exchange="binance"
+    exchange="binance",
+    proxies = proxies
 )
 try:
     print("{}#6{} Please compare with {}https://www.tradingview.com/symbols/BINANCE:BTCUSDT/technicals/{}. (Check for indicators)".format(Fore.BLUE, Style.RESET_ALL, Fore.LIGHTMAGENTA_EX, Style.RESET_ALL))
