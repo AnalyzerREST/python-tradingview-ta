@@ -187,3 +187,20 @@ Parameters:
 
         # Example
         {'BINANCE:DEXEUSDT': None, 'BINANCE:BTCUSDT': <tradingview_ta.main.Analysis object at 0x7f3561cdeb20>}
+
+Proxy
+-----
+Simply add the ``proxies`` parameter if you wish to utilize a proxy. It's worth noting that a bad proxy could result in TradingView rejecting your request.
+
+    .. code-block:: python3
+
+        from tradingview_ta import TA_Handler, Interval, Exchange
+        tesla = TA_Handler(
+            symbol="TSLA",
+            screener="america",
+            exchange="NASDAQ",
+            interval=Interval.INTERVAL_1_DAY,
+            proxies={'http': 'http://0.0.0.0:8080', 'https': 'https://0.0.0.0:443'}
+        )
+        print(tesla.get_analysis().summary)
+        # Example output: {"RECOMMENDATION": "BUY", "BUY": 8, "NEUTRAL": 6, "SELL": 3}
