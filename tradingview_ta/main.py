@@ -302,7 +302,7 @@ class TA_Handler(object):
         data = TradingView.data([exchange_symbol], self.interval, indicators)
         scan_url = f"{TradingView.scan_url}{self.screener.lower()}/scan"
         headers = {"User-Agent": "tradingview_ta/{}".format(__version__)}
-        response = requests.post(scan_url,json=data, headers=headers, timeout=self.timeout,proxies=self.proxies)
+        response = requests.post(scan_url,json=data, headers=headers, timeout=self.timeout, proxies=self.proxies)
 
         # Return False if can't get data
         if response.status_code != 200:
@@ -361,7 +361,7 @@ def get_multiple_analysis(screener, interval, symbols, timeout=None):
     data = TradingView.data(symbols, interval, indicators_key)
     scan_url = f"{TradingView.scan_url}{screener.lower()}/scan"
     headers = {"User-Agent": "tradingview_ta/{}".format(__version__)}
-    response = requests.post(scan_url,json=data, headers=headers, timeout=timeout,proxies=self.proxies)
+    response = requests.post(scan_url,json=data, headers=headers, timeout=timeout, proxies=self.proxies)
 
     result = json.loads(response.text)["data"]
     final = {}
