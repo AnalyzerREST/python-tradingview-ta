@@ -336,7 +336,7 @@ class TA_Handler(object):
 
         return calculate(indicators=self.get_indicators(), indicators_key=self.indicators, screener=self.screener, symbol=self.symbol, exchange=self.exchange, interval=self.interval)
 
-def get_multiple_analysis(screener, interval, symbols, timeout=None):
+def get_multiple_analysis(screener, interval, symbols, timeout=None, proxies=None):
     """Retrieve multiple technical analysis at once. Note: You can't mix different screener and interval
 
     Args:
@@ -361,7 +361,7 @@ def get_multiple_analysis(screener, interval, symbols, timeout=None):
     data = TradingView.data(symbols, interval, indicators_key)
     scan_url = f"{TradingView.scan_url}{screener.lower()}/scan"
     headers = {"User-Agent": "tradingview_ta/{}".format(__version__)}
-    response = requests.post(scan_url,json=data, headers=headers, timeout=timeout, proxies=self.proxies)
+    response = requests.post(scan_url,json=data, headers=headers, timeout=timeout, proxies=proxies)
 
     result = json.loads(response.text)["data"]
     final = {}
