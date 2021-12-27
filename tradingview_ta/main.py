@@ -208,6 +208,7 @@ class TA_Handler(object):
             symbol (str, required): Abbreviation of a stock or currency (see documentation and tradingview's site).
             interval (str, optional): See the interval class and the documentation. Defaults to 1 day.
             timeout (float, optional): Timeout for requests (in seconds). Defaults to None.
+            proxies (dict, optional): Proxies to be used for requests. Defaults to None (disabled).
         """
         self.screener = screener
         self.exchange = exchange
@@ -336,14 +337,16 @@ class TA_Handler(object):
 
         return calculate(indicators=self.get_indicators(), indicators_key=self.indicators, screener=self.screener, symbol=self.symbol, exchange=self.exchange, interval=self.interval)
 
-def get_multiple_analysis(screener, interval, symbols, timeout=None, proxies=None):
+def get_multiple_analysis(screener, interval, symbols, additional_indicators=[], timeout=None, proxies=None):
     """Retrieve multiple technical analysis at once. Note: You can't mix different screener and interval
 
     Args:
         screener (str, required): Screener (see documentation and tradingview's site).
         interval (str, optional): See the interval class and the documentation. Defaults to 1 day.
-        symbols (list): List of exchange and ticker symbol separated by a colon. Example: ["NASDAQ:TSLA", "NYSE:DOCN"] or ["BINANCE:BTCUSDT", "BITSTAMP:ETHUSD"].
+        symbols (list, required): List of exchange and ticker symbol separated by a colon. Example: ["NASDAQ:TSLA", "NYSE:DOCN"] or ["BINANCE:BTCUSDT", "BITSTAMP:ETHUSD"].
+        additional_indicators (list, optional): List of additional indicators to be requested from TradingView, see valid indicators on https://pastebin.com/1DjWv2Hd.
         timeout (float, optional): Timeout for requests (in seconds). Defaults to None.
+        proxies (dict, optional): Proxies to be used for requests. Defaults to None (disabled).
 
     Returns:
         dict: dictionary with a format of {"EXCHANGE:SYMBOL": Analysis}.
@@ -357,6 +360,9 @@ def get_multiple_analysis(screener, interval, symbols, timeout=None, proxies=Non
             raise Exception("One or more symbol is invalid. Symbol should be a list of exchange and ticker symbol separated by a colon. Example: [\"NASDAQ:TSLA\", \"NYSE:DOCN\"] or [\"BINANCE:BTCUSDT\", \"BITSTAMP:ETHUSD\"].")
 
     indicators_key = TradingView.indicators.copy()
+
+    if additional_indicators:
+        indicators_key += additional_indicators
 
     data = TradingView.data(symbols, interval, indicators_key)
     scan_url = f"{TradingView.scan_url}{screener.lower()}/scan"
