@@ -4,16 +4,12 @@
  ![TradingView](https://raw.githubusercontent.com/brian-the-dev/python-tradingview-ta/main/images/tradingview.png)
 
 ## Note
- Please ensure to update to the latest version for new features and bug fixes. `pip install -U tradingview_ta`
- 
-## Other implementations
- Golang: [dematron/go-tvscanner](https://github.com/dematron/go-tvscanner)
- 
- NodeJS: [tvorilas/trading-view-recommends-parser-nodejs](https://github.com/tvorilas/trading-view-recommends-parser-nodejs)
+ - Always update tradingview-ta for new features and bug fixes: `pip install -U tradingview_ta`
+ - Technical analysis for indices (index) is not supported by both TradingView and tradingview-ta, see issue [#67](https://github.com/brian-the-dev/python-tradingview-ta/issues/67) and [#84](https://github.com/brian-the-dev/python-tradingview-ta/issues/84).
  
 ## Features
-* Fast analysis (compared to v2.5.0 or older)
-* Reputable data sources
+* Faster response (compared to v2, which uses Selenium)
+* [Retrieve analysis for multiple symbols](https://python-tradingview-ta.readthedocs.io/en/latest/usage.html#retrieving-multiple-analysis)
 * Indicators
 
 ## Demo
@@ -24,13 +20,14 @@ You can try tradingview-ta online without installing Python: https://tradingview
  - [Requests](https://pypi.org/project/requests/), included in installation.
  
 ## Installation
- [pip](https://pypi.org/project/tradingview-ta/):
+ [PyPI](https://pypi.org/project/tradingview-ta/) (stable, recommended):
  
 ```pip install tradingview_ta```
 
- [Docker image](https://github.com/reg2005/tradingview-ta-docker):
+ GitHub (latest):
+ 
+```pip install git+https://github.com/brian-the-dev/python-tradingview-ta.git```
 
-```docker run -p 8080:8080 --rm reg2005/tradingview-ta-docker```
 
 ## Example
 ```python
@@ -52,16 +49,14 @@ Tip: Use https://tvdb.brianthe.dev/ if you don't know what symbol, screener, and
 ## Documentation
  [Read The Docs](https://python-tradingview-ta.readthedocs.io)
 
- [Mirror (IPFS)](https://tvta-docs.brianthe.dev/)
-
 ## Issue
- Found a bug? Want to ask something? Just create an issue and I'll help you.
+ If you found a bug or have a question, please open an issue.
   
 ## Warning
- Trading (especially using an automated program) is a dangerous activity. Do not use TradingView's analysis to trade automatically without your supervision. I am not responsible for any financial loss.
+ Trading is a risky activity, especially when done using an automated program. Never trade automatically without your supervision using results provided by tradingview-ta. Any monetary losses are not my fault.
 
 ## Contributing
- You may fork this repository or submit a pull request. Any pull request (documentation, bug fix, features, etc) are welcomed. Please follow the guidelines [here](https://github.com/brian-the-dev/python-tradingview-ta/blob/main/CONTRIBUTING.md).
+ Pull requests (docs, bug fix, features) are welcomed! Any pull request (documentation, bug fix, features, etc) are welcomed. Please follow the [guidelines](https://github.com/brian-the-dev/python-tradingview-ta/blob/main/CONTRIBUTING.md) and the [code of conduct](https://github.com/brian-the-dev/python-tradingview-ta/blob/main/CODE_OF_CONDUCT.md).
  
 ## License
  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
