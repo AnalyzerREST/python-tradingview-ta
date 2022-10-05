@@ -188,6 +188,27 @@ Parameters:
         # Example
         {'BINANCE:DEXEUSDT': None, 'BINANCE:BTCUSDT': <tradingview_ta.main.Analysis object at 0x7f3561cdeb20>}
 
+Symbol search
+-------------
+.. versionadded:: 3.3.0
+
+Search for symbols using the TradingView symbol search API. Returns a list of symbols, exchanges, types, descriptions, and logo URLs matching the search query.
+
+.. code-block:: python3
+
+    from tradingview_ta import TradingView
+    print(TradingView.search("tesla", "america"))
+    # Output: [{'symbol': 'TSLA', 'exchange': 'NASDAQ', 'type': 'stock', 'description': 'Tesla, Inc.', 'logo': 'https://s3-symbol-logo.tradingview.com/tesla.svg'}, ...]
+
+.. note::
+
+    While symbols listed on https://tvdb.brianthe.dev are guaranteed to work with the "get analysis()" function, symbols returned by this function may not.
+
+Parameters: 
+
+* text (``str``) – Query string.
+* type (``str``, optional) – Type of asset (stock, crypto, futures, index). Defaults to None (all).
+
 Proxy
 -----
 Simply add the ``proxies`` parameter if you wish to utilize a proxy. It's worth noting that a bad proxy could result in TradingView rejecting your request.
