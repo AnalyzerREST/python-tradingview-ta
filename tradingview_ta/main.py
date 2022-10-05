@@ -8,7 +8,7 @@ import datetime
 import warnings
 from .technicals import Compute
 
-__version__ = "3.2.10"
+__version__ = "3.3.0"
 
 
 class Analysis(object):
