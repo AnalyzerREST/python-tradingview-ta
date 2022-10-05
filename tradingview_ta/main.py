@@ -2,10 +2,14 @@
 # Author: deathlyface (https://github.com/deathlyface)
 # License: MIT
 
-import requests, json, datetime, warnings
+import requests
+import json
+import datetime
+import warnings
 from .technicals import Compute
 
 __version__ = "3.2.10"
+
 
 class Analysis(object):
     exchange = ""
@@ -17,6 +21,7 @@ class Analysis(object):
     oscillators = {}
     moving_averages = {}
     indicators = {}
+
 
 class Interval:
     INTERVAL_1_MINUTE = "1m"
@@ -30,6 +35,7 @@ class Interval:
     INTERVAL_1_WEEK = "1W"
     INTERVAL_1_MONTH = "1M"
 
+
 class Exchange:
     FOREX = "FX_IDC"
     CFD = "TVC"
@@ -37,7 +43,8 @@ class Exchange:
 
 class TradingView:
     # Note: Please DO NOT modify the order or DELETE existing indicators, it will break the technical analysis. You may APPEND custom indicator to the END of the list.
-    indicators = ["Recommend.Other","Recommend.All","Recommend.MA","RSI","RSI[1]","Stoch.K","Stoch.D","Stoch.K[1]","Stoch.D[1]","CCI20","CCI20[1]","ADX","ADX+DI","ADX-DI","ADX+DI[1]","ADX-DI[1]","AO","AO[1]","Mom","Mom[1]","MACD.macd","MACD.signal","Rec.Stoch.RSI","Stoch.RSI.K","Rec.WR","W.R","Rec.BBPower","BBPower","Rec.UO","UO","close","EMA5","SMA5","EMA10","SMA10","EMA20","SMA20","EMA30","SMA30","EMA50","SMA50","EMA100","SMA100","EMA200","SMA200","Rec.Ichimoku","Ichimoku.BLine","Rec.VWMA","VWMA","Rec.HullMA9","HullMA9","Pivot.M.Classic.S3","Pivot.M.Classic.S2","Pivot.M.Classic.S1","Pivot.M.Classic.Middle","Pivot.M.Classic.R1","Pivot.M.Classic.R2","Pivot.M.Classic.R3","Pivot.M.Fibonacci.S3","Pivot.M.Fibonacci.S2","Pivot.M.Fibonacci.S1","Pivot.M.Fibonacci.Middle","Pivot.M.Fibonacci.R1","Pivot.M.Fibonacci.R2","Pivot.M.Fibonacci.R3","Pivot.M.Camarilla.S3","Pivot.M.Camarilla.S2","Pivot.M.Camarilla.S1","Pivot.M.Camarilla.Middle","Pivot.M.Camarilla.R1","Pivot.M.Camarilla.R2","Pivot.M.Camarilla.R3","Pivot.M.Woodie.S3","Pivot.M.Woodie.S2","Pivot.M.Woodie.S1","Pivot.M.Woodie.Middle","Pivot.M.Woodie.R1","Pivot.M.Woodie.R2","Pivot.M.Woodie.R3","Pivot.M.Demark.S1","Pivot.M.Demark.Middle","Pivot.M.Demark.R1", "open", "P.SAR", "BB.lower", "BB.upper", "AO[2]", "volume", "change", "low", "high", "Stoch.RSI.D"]
+    indicators = ["Recommend.Other", "Recommend.All", "Recommend.MA", "RSI", "RSI[1]", "Stoch.K", "Stoch.D", "Stoch.K[1]", "Stoch.D[1]", "CCI20", "CCI20[1]", "ADX", "ADX+DI", "ADX-DI", "ADX+DI[1]", "ADX-DI[1]", "AO", "AO[1]", "Mom", "Mom[1]", "MACD.macd", "MACD.signal", "Rec.Stoch.RSI", "Stoch.RSI.K", "Rec.WR", "W.R", "Rec.BBPower", "BBPower", "Rec.UO", "UO", "close", "EMA5", "SMA5", "EMA10", "SMA10", "EMA20", "SMA20", "EMA30", "SMA30", "EMA50", "SMA50", "EMA100", "SMA100", "EMA200", "SMA200", "Rec.Ichimoku", "Ichimoku.BLine", "Rec.VWMA", "VWMA", "Rec.HullMA9", "HullMA9", "Pivot.M.Classic.S3", "Pivot.M.Classic.S2", "Pivot.M.Classic.S1", "Pivot.M.Classic.Middle", "Pivot.M.Classic.R1",
+                  "Pivot.M.Classic.R2", "Pivot.M.Classic.R3", "Pivot.M.Fibonacci.S3", "Pivot.M.Fibonacci.S2", "Pivot.M.Fibonacci.S1", "Pivot.M.Fibonacci.Middle", "Pivot.M.Fibonacci.R1", "Pivot.M.Fibonacci.R2", "Pivot.M.Fibonacci.R3", "Pivot.M.Camarilla.S3", "Pivot.M.Camarilla.S2", "Pivot.M.Camarilla.S1", "Pivot.M.Camarilla.Middle", "Pivot.M.Camarilla.R1", "Pivot.M.Camarilla.R2", "Pivot.M.Camarilla.R3", "Pivot.M.Woodie.S3", "Pivot.M.Woodie.S2", "Pivot.M.Woodie.S1", "Pivot.M.Woodie.Middle", "Pivot.M.Woodie.R1", "Pivot.M.Woodie.R2", "Pivot.M.Woodie.R3", "Pivot.M.Demark.S1", "Pivot.M.Demark.Middle", "Pivot.M.Demark.R1", "open", "P.SAR", "BB.lower", "BB.upper", "AO[2]", "volume", "change", "low", "high"]
 
     scan_url = "https://scanner.tradingview.com/"
 
@@ -80,16 +87,44 @@ class TradingView:
             data_interval = "|1M"
         else:
             if interval != '1d':
-                warnings.warn("Interval is empty or not valid, defaulting to 1 day.")
+                warnings.warn(
+                    "Interval is empty or not valid, defaulting to 1 day.")
             # Default, 1 Day
             data_interval = ""
 
-        data_json = {"symbols":{"tickers":[symbol.upper() for symbol in symbols],"query":{"types":[]}},"columns":[x + data_interval for x in indicators]}
+        data_json = {"symbols": {"tickers": [symbol.upper() for symbol in symbols], "query": {
+            "types": []}}, "columns": [x + data_interval for x in indicators]}
 
         return data_json
 
+    def search(text, type=None):
+        """Search for assets on TradingView. Returns the symbol, exchange, type, and description of the asset.
+
+        Args:
+            text (str, required): Query string
+            type (str, optional): Type of asset (stock, crypto, futures, index). Defaults to None.
+        """
+        req = requests.post(
+            "https://symbol-search.tradingview.com/symbol_search", params={"text": text, "type": type})
+        symbols = json.loads(req.text)
+        res = []
+        for symbol in symbols:
+            if "logoid" in symbol:
+                logo = f"https://s3-symbol-logo.tradingview.com/{symbol['logoid']}.svg"
+            elif "base-currency-logoid" in symbol:
+                logo = f"https://s3-symbol-logo.tradingview.com/{symbol['base-currency-logoid']}.svg"
+            elif "country" in symbol:
+                logo = f"https://s3-symbol-logo.tradingview.com/country/{symbol['country']}.svg"
+            else:
+                logo = None
+            res.append({"symbol": symbol["symbol"], "exchange": symbol["exchange"],
+                        "type": symbol["type"], "description": symbol["description"], "logo": logo})
+        return res
+
+
 def calculate(indicators, indicators_key, screener, symbol, exchange, interval):
-    oscillators_counter, ma_counter = {"BUY": 0, "SELL": 0, "NEUTRAL": 0}, {"BUY": 0, "SELL": 0, "NEUTRAL": 0}
+    oscillators_counter, ma_counter = {"BUY": 0, "SELL": 0, "NEUTRAL": 0}, {
+        "BUY": 0, "SELL": 0, "NEUTRAL": 0}
     computed_oscillators, computed_ma = {}, {}
 
     indicators = list(indicators.values())
@@ -109,27 +144,33 @@ def calculate(indicators, indicators_key, screener, symbol, exchange, interval):
         oscillators_counter[computed_oscillators["RSI"]] += 1
     # Stoch %K
     if None not in indicators[5:9]:
-        computed_oscillators["STOCH.K"] = Compute.Stoch(indicators[5], indicators[6], indicators[7], indicators[8])
+        computed_oscillators["STOCH.K"] = Compute.Stoch(
+            indicators[5], indicators[6], indicators[7], indicators[8])
         oscillators_counter[computed_oscillators["STOCH.K"]] += 1
     # CCI (20)
     if None not in indicators[9:11]:
-        computed_oscillators["CCI"] = Compute.CCI20(indicators[9], indicators[10])
+        computed_oscillators["CCI"] = Compute.CCI20(
+            indicators[9], indicators[10])
         oscillators_counter[computed_oscillators["CCI"]] += 1
     # ADX (14)
     if None not in indicators[11:16]:
-        computed_oscillators["ADX"] = Compute.ADX(indicators[11], indicators[12], indicators[13], indicators[14], indicators[15])
+        computed_oscillators["ADX"] = Compute.ADX(
+            indicators[11], indicators[12], indicators[13], indicators[14], indicators[15])
         oscillators_counter[computed_oscillators["ADX"]] += 1
     # AO
     if None not in indicators[16:18] and indicators[86] != None:
-        computed_oscillators["AO"] = Compute.AO(indicators[16], indicators[17], indicators[86])
+        computed_oscillators["AO"] = Compute.AO(
+            indicators[16], indicators[17], indicators[86])
         oscillators_counter[computed_oscillators["AO"]] += 1
     # Mom (10)
     if None not in indicators[18:20]:
-        computed_oscillators["Mom"] = Compute.Mom(indicators[18], indicators[19])
+        computed_oscillators["Mom"] = Compute.Mom(
+            indicators[18], indicators[19])
         oscillators_counter[computed_oscillators["Mom"]] += 1
     # MACD
     if None not in indicators[20:22]:
-        computed_oscillators["MACD"] = Compute.MACD(indicators[20], indicators[21])
+        computed_oscillators["MACD"] = Compute.MACD(
+            indicators[20], indicators[21])
         oscillators_counter[computed_oscillators["MACD"]] += 1
     # Stoch RSI
     if indicators[22] != None:
@@ -149,12 +190,14 @@ def calculate(indicators, indicators_key, screener, symbol, exchange, interval):
         oscillators_counter[computed_oscillators["UO"]] += 1
 
     # MOVING AVERAGES
-    ma_list = ["EMA10","SMA10","EMA20","SMA20","EMA30","SMA30","EMA50","SMA50","EMA100","SMA100","EMA200","SMA200"]
+    ma_list = ["EMA10", "SMA10", "EMA20", "SMA20", "EMA30", "SMA30",
+               "EMA50", "SMA50", "EMA100", "SMA100", "EMA200", "SMA200"]
     close = indicators[30]
     ma_list_counter = 0
     for index in range(33, 45):
         if indicators[index] != None:
-            computed_ma[ma_list[ma_list_counter]] = Compute.MA(indicators[index], close)
+            computed_ma[ma_list[ma_list_counter]] = Compute.MA(
+                indicators[index], close)
             ma_counter[computed_ma[ma_list[ma_list_counter]]] += 1
             ma_list_counter += 1
 
@@ -184,11 +227,15 @@ def calculate(indicators, indicators_key, screener, symbol, exchange, interval):
 
     analysis.indicators = analysis.indicators.copy()
 
-    analysis.oscillators = {"RECOMMENDATION": recommend_oscillators, "BUY": oscillators_counter["BUY"], "SELL": oscillators_counter["SELL"], "NEUTRAL": oscillators_counter["NEUTRAL"], "COMPUTE": computed_oscillators}
-    analysis.moving_averages = {"RECOMMENDATION": recommend_moving_averages, "BUY": ma_counter["BUY"], "SELL": ma_counter["SELL"], "NEUTRAL": ma_counter["NEUTRAL"], "COMPUTE": computed_ma}
-    analysis.summary = {"RECOMMENDATION": recommend_summary, "BUY": oscillators_counter["BUY"] + ma_counter["BUY"], "SELL": oscillators_counter["SELL"] + ma_counter["SELL"], "NEUTRAL": oscillators_counter["NEUTRAL"] + ma_counter["NEUTRAL"]}
+    analysis.oscillators = {"RECOMMENDATION": recommend_oscillators,
+                            "BUY": oscillators_counter["BUY"], "SELL": oscillators_counter["SELL"], "NEUTRAL": oscillators_counter["NEUTRAL"], "COMPUTE": computed_oscillators}
+    analysis.moving_averages = {"RECOMMENDATION": recommend_moving_averages,
+                                "BUY": ma_counter["BUY"], "SELL": ma_counter["SELL"], "NEUTRAL": ma_counter["NEUTRAL"], "COMPUTE": computed_ma}
+    analysis.summary = {"RECOMMENDATION": recommend_summary, "BUY": oscillators_counter["BUY"] + ma_counter["BUY"],
+                        "SELL": oscillators_counter["SELL"] + ma_counter["SELL"], "NEUTRAL": oscillators_counter["NEUTRAL"] + ma_counter["NEUTRAL"]}
 
     return analysis
+
 
 class TA_Handler(object):
     screener = ""
@@ -303,11 +350,13 @@ class TA_Handler(object):
         data = TradingView.data([exchange_symbol], self.interval, indicators)
         scan_url = f"{TradingView.scan_url}{self.screener.lower()}/scan"
         headers = {"User-Agent": "tradingview_ta/{}".format(__version__)}
-        response = requests.post(scan_url,json=data, headers=headers, timeout=self.timeout, proxies=self.proxies)
+        response = requests.post(
+            scan_url, json=data, headers=headers, timeout=self.timeout, proxies=self.proxies)
 
         # Return False if can't get data
         if response.status_code != 200:
-            raise Exception("Can't access TradingView's API. HTTP status code: {}. Check for invalid symbol, exchange, or indicators.".format(response.status_code))
+            raise Exception("Can't access TradingView's API. HTTP status code: {}. Check for invalid symbol, exchange, or indicators.".format(
+                response.status_code))
 
         result = json.loads(response.text)["data"]
         if result != []:
@@ -337,6 +386,7 @@ class TA_Handler(object):
 
         return calculate(indicators=self.get_indicators(), indicators_key=self.indicators, screener=self.screener, symbol=self.symbol, exchange=self.exchange, interval=self.interval)
 
+
 def get_multiple_analysis(screener, interval, symbols, additional_indicators=[], timeout=None, proxies=None):
     """Retrieve multiple technical analysis at once. Note: You can't mix different screener and interval
 
@@ -357,7 +407,8 @@ def get_multiple_analysis(screener, interval, symbols, additional_indicators=[],
         raise Exception("Symbols is empty or not valid.")
     for symbol in symbols:
         if len(symbol.split(":")) != 2 or "" in symbol.split(":"):
-            raise Exception("One or more symbol is invalid. Symbol should be a list of exchange and ticker symbol separated by a colon. Example: [\"NASDAQ:TSLA\", \"NYSE:DOCN\"] or [\"BINANCE:BTCUSDT\", \"BITSTAMP:ETHUSD\"].")
+            raise Exception(
+                "One or more symbol is invalid. Symbol should be a list of exchange and ticker symbol separated by a colon. Example: [\"NASDAQ:TSLA\", \"NYSE:DOCN\"] or [\"BINANCE:BTCUSDT\", \"BITSTAMP:ETHUSD\"].")
 
     indicators_key = TradingView.indicators.copy()
 
@@ -367,7 +418,8 @@ def get_multiple_analysis(screener, interval, symbols, additional_indicators=[],
     data = TradingView.data(symbols, interval, indicators_key)
     scan_url = f"{TradingView.scan_url}{screener.lower()}/scan"
     headers = {"User-Agent": "tradingview_ta/{}".format(__version__)}
-    response = requests.post(scan_url,json=data, headers=headers, timeout=timeout, proxies=proxies)
+    response = requests.post(
+        scan_url, json=data, headers=headers, timeout=timeout, proxies=proxies)
 
     result = json.loads(response.text)["data"]
     final = {}
@@ -378,7 +430,8 @@ def get_multiple_analysis(screener, interval, symbols, additional_indicators=[],
         for x in range(len(analysis["d"])):
             indicators[indicators_key[x]] = analysis["d"][x]
 
-        final[analysis["s"]] = calculate(indicators=indicators, indicators_key=indicators_key, screener=screener, symbol=analysis["s"].split(":")[1], exchange=analysis["s"].split(":")[0], interval=interval)
+        final[analysis["s"]] = calculate(indicators=indicators, indicators_key=indicators_key, screener=screener, symbol=analysis["s"].split(
+            ":")[1], exchange=analysis["s"].split(":")[0], interval=interval)
 
     for symbol in symbols:
         # Add None if there is no analysis for symbol
