@@ -1,6 +1,21 @@
 Changelog
 =========
 
+3.3.0
+-----
+
+New:
+
+* Symbol search
+
+3.2.10
+------
+
+New:
+
+* Support for proxy
+* Additional indicators support for ``get_multiple_analysis()``
+
 3.2.9
 -----
 

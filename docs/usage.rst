@@ -151,6 +151,7 @@ Parameters:
 * symbols (``list``) – List of exchange and ticker symbol separated by a colon. Example: ["NASDAQ:TSLA", "NYSE:DOCN"] or ["BINANCE:BTCUSDT", "BITSTAMP:ETHUSD"].
 * screener (``str``) – Screener (e.g., ``"america"``, ``"indonesia"``, ``"forex"``, ``"crypto"``).
 * timeout (``float``, optional) – How long to wait (in seconds) for the server to return a response.
+* additional_indicators (``list``, optional) – List of additional indicators to retrieve. Example: ``["RSI", "Mom"]``.
 * interval (``str``) – Time frame
   
     .. note::
@@ -211,7 +212,7 @@ Parameters:
 
 Proxy
 -----
-Simply add the ``proxies`` parameter if you wish to utilize a proxy. It's worth noting that a bad proxy could result in TradingView rejecting your request.
+Simply add the ``proxies`` parameter if you wish to utilize a proxy. Works with both ``TA_Handler()`` and ``get_multiple_analysis()``. It's worth noting that a bad proxy could result in TradingView rejecting your request.
 
     .. code-block:: python3
 
