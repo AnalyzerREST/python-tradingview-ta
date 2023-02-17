@@ -2,6 +2,8 @@
  An unofficial python API wrapper to retrieve technical analysis from TradingView.
  
  ![TradingView](https://raw.githubusercontent.com/brian-the-dev/python-tradingview-ta/main/images/tradingview.png)
+ 
+ Ref: [Build your next project with DigitalOcean! Get $200 in credit by using this link.](https://m.do.co/c/69bc2c8e7368)
 
 ## Note
  - Always update tradingview-ta for new features and bug fixes: `pip install -U tradingview_ta`
