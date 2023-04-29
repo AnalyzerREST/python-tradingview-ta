@@ -1,21 +1,27 @@
-# python-tradingview-ta [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Documentation Status](https://readthedocs.org/projects/python-tradingview-ta/badge/?version=latest)](https://python-tradingview-ta.readthedocs.io/en/latest/?badge=latest) [![PyPI version](https://img.shields.io/pypi/v/tradingview-ta)](https://pypi.org/project/tradingview-ta/)
- An unofficial python API wrapper to retrieve technical analysis from TradingView.
- 
- ![TradingView](https://raw.githubusercontent.com/brian-the-dev/python-tradingview-ta/main/images/tradingview.png)
- 
- Ref: [Build your next project with DigitalOcean! Get $200 in credit by using this link.](https://m.do.co/c/69bc2c8e7368)
+<h1 align="center">Python TradingView TA by Analyzer.REST</h1>
+<div align="center">
+  <img src="https://img.shields.io/readthedocs/python-tradingview-ta/latest?style=for-the-badge" />
+  <img src="https://img.shields.io/github/license/analyzerrest/python-tradingview-ta?style=for-the-badge" />
+  <img src="https://img.shields.io/pypi/v/tradingview-ta?style=for-the-badge" />
+</div>
+<br>
+<div align="center">
+  <p>An unofficial API wrapper for TradingView that allows you to fetch technical analysis data, now under new management.</p>
+  <h3>Brought to you by Analyzer.REST, which provides Technical Analysis-as-a-Service (TAaaS) through an intuitive and affordable API. <a href="https://analyzer.rest/">Join the waitlist!</a></h3>
+  <img src="https://raw.githubusercontent.com/analyzerrest/python-tradingview-ta/main/images/tradingview.png" />
+</div>
 
-## Note
- - Always update tradingview-ta for new features and bug fixes: `pip install -U tradingview_ta`
- - Technical analysis for indices (index) is not supported by both TradingView and tradingview-ta, see issue [#67](https://github.com/brian-the-dev/python-tradingview-ta/issues/67) and [#84](https://github.com/brian-the-dev/python-tradingview-ta/issues/84).
+## Important
+ - Keep tradingview-ta up to date for new features and bug fixes: `pip install -U tradingview_ta`
+ - Technical analysis for indices (index) is not supported by both TradingView and tradingview-ta, see issue [#67](https://github.com/analyzerrest/python-tradingview-ta/issues/67) and [#84](https://github.com/analyzerrest/python-tradingview-ta/issues/84).
  
 ## Features
-* Faster response (compared to v2, which uses Selenium)
-* [Retrieve analysis for multiple symbols](https://python-tradingview-ta.readthedocs.io/en/latest/usage.html#retrieving-multiple-analysis)
-* Indicators
+* Faster response (older version of tradingview-ta requires Selenium)
+* [Support for multiple symbols](https://python-tradingview-ta.readthedocs.io/en/latest/usage.html#retrieving-multiple-analysis)
+* Indicators (Only TradingView built-in, does not support Pine Script/custom indicators)
 
 ## Demo
-You can try tradingview-ta online without installing Python: https://tradingview.brianthe.dev/.
+You can try tradingview-ta online without installing Python: https://tvta-demo.analyzer.rest/.
 
 ## Requirements
  - Python 3.6 or newer.
@@ -28,7 +34,7 @@ You can try tradingview-ta online without installing Python: https://tradingview
 
  GitHub (latest):
  
-```pip install git+https://github.com/brian-the-dev/python-tradingview-ta.git```
+```pip install git+https://github.com/analyzerrest/python-tradingview-ta.git```
 
 
 ## Example
@@ -46,19 +52,19 @@ print(tesla.get_analysis().summary)
 # Example output: {"RECOMMENDATION": "BUY", "BUY": 8, "NEUTRAL": 6, "SELL": 3}
 ```
 
-Tip: Use https://tvdb.brianthe.dev/ if you don't know what symbol, screener, and exchange to use.
+Tip: Use https://tvdb.analyzer.rest/ if you don't know what symbol, screener, and exchange to use.
 
 ## Documentation
  [Read The Docs](https://python-tradingview-ta.readthedocs.io)
 
 ## Issue
- If you found a bug or have a question, please open an issue.
+ If you found a bug or have a question, please open an issue. Email will not be replied.
   
 ## Warning
  Trading is a risky activity, especially when done using an automated program. Never trade automatically without your supervision using results provided by tradingview-ta. Any monetary losses are not my fault.
 
 ## Contributing
- Pull requests (docs, bug fix, features) are welcomed! Any pull request (documentation, bug fix, features, etc) are welcomed. Please follow the [guidelines](https://github.com/brian-the-dev/python-tradingview-ta/blob/main/CONTRIBUTING.md) and the [code of conduct](https://github.com/brian-the-dev/python-tradingview-ta/blob/main/CODE_OF_CONDUCT.md).
+ Pull requests (docs, bug fix, features) are welcomed! Any pull request (documentation, bug fix, features, etc) are welcomed. Please follow the [guidelines](https://github.com/analyzerrest/python-tradingview-ta/blob/main/CONTRIBUTING.md) and the [code of conduct](https://github.com/analyzerrest/python-tradingview-ta/blob/main/CODE_OF_CONDUCT.md).
  
 ## License
  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
