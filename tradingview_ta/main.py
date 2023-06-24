@@ -531,42 +531,6 @@ def get_multiple_analysis(screener, interval, symbols, additional_indicators=[],
     return final
 
 
-def get_end_with(interval):
-    if interval == "1m":
-        # 1 Minute
-        return "|1"
-    elif interval == "5m":
-        # 5 Minutes
-        return "|5"
-    elif interval == "15m":
-        # 15 Minutes
-        return "|15"
-    elif interval == "30m":
-        # 30 Minutes
-        return "|30"
-    elif interval == "1h":
-        # 1 Hour
-        return "|60"
-    elif interval == "2h":
-        # 2 Hours
-        return "|120"
-    elif interval == "4h":
-        # 4 Hour
-        return "|240"
-    elif interval == "1W":
-        # 1 Week
-        return "|1W"
-    elif interval == "1M":
-        # 1 Month
-        return "|1M"
-    else:
-        if interval != '1d':
-            warnings.warn(
-                "Interval is empty or not valid, defaulting to 1 day.")
-        # Default, 1 Day
-        return "|1D"
-
-
 def get_multiple_analysis_with_multiple_intervals(screener, intervals, symbols, additional_indicators=[], timeout=None,
                                                   proxies=None):
     """Retrieve multiple technical analysis at once. Note: You can't mix different screener and interval
@@ -582,14 +546,14 @@ def get_multiple_analysis_with_multiple_intervals(screener, intervals, symbols, 
     Returns:
         dict: dictionary with a format of {"EXCHANGE:SYMBOL": Analysis}.
     """
-    if screener == "" or type(screener) != str:
+    if not screener or not isinstance(screener, str):
         raise Exception("Screener is empty or not valid.")
-    if len(symbols) == 0 or type(symbols) != list:
+    if not symbols or not isinstance(symbols, list):
         raise Exception("Symbols is empty or not valid.")
     for symbol in symbols:
         if len(symbol.split(":")) != 2 or "" in symbol.split(":"):
             raise Exception(
-                "One or more symbol is invalid. Symbol should be a list of exchange and ticker symbol separated by a colon. Example: [\"NASDAQ:TSLA\", \"NYSE:DOCN\"] or [\"BINANCE:BTCUSDT\", \"BITSTAMP:ETHUSD\"].")
+                "One or more symbols are invalid. Symbols should be a list of exchange and ticker symbol separated by a colon. Example: [\"NASDAQ:TSLA\", \"NYSE:DOCN\"] or [\"BINANCE:BTCUSDT\", \"BITSTAMP:ETHUSD\"].")
 
     indicators_key = TradingView.indicators.copy()
 
@@ -600,21 +564,18 @@ def get_multiple_analysis_with_multiple_intervals(screener, intervals, symbols, 
     indicators_key = data["columns"]
     scan_url = f"{TradingView.scan_url}{screener.lower()}/scan"
     headers = {"User-Agent": "tradingview_ta/{}".format(__version__)}
-    response = requests.post(
-        scan_url, json=data, headers=headers, timeout=timeout, proxies=proxies)
+    response = requests.post(scan_url, json=data, headers=headers, timeout=timeout, proxies=proxies)
 
     result = json.loads(response.text)["data"]
     final = {}
 
     for analysis in result:
         # Convert list to dict
-        indicators = {}
-        for x in range(len(analysis["d"])):
-            indicators[indicators_key[x]] = analysis["d"][x]
+        indicators = {indicators_key[x]: analysis["d"][x] for x in range(len(analysis["d"]))}
 
         final[analysis["s"]] = calculate(indicators=indicators, indicators_key=indicators_key, screener=screener,
-                                         symbol=analysis["s"].split(
-                                             ":")[1], exchange=analysis["s"].split(":")[0], interval=intervals)
+                                         symbol=analysis["s"].split(":")[1], exchange=analysis["s"].split(":")[0],
+                                         interval=intervals)
 
     for symbol in symbols:
         # Add None if there is no analysis for symbol
@@ -674,9 +635,10 @@ def get_multiple_analysis_with_multiple_intervals(screener, intervals, symbols, 
 
         final[i.upper()].indicators = combain_dict
 
+    print(final["BINANCE:SOLUSDT"].indicators)
     return final
 
 
 get_multiple_analysis_with_multiple_intervals(screener="crypto",
-                                              intervals=[Interval.INTERVAL_1_DAY],
+                                              intervals=[Interval.INTERVAL_1_DAY, Interval.INTERVAL_1_HOUR],
                                               symbols=["BINANCE:SOLUSDT"])
