@@ -8,7 +8,7 @@ import warnings
 
 import requests
 
-from technicals import Compute
+from .technicals import Compute
 
 __version__ = "3.3.0"
 
@@ -635,10 +635,4 @@ def get_multiple_analysis_with_multiple_intervals(screener, intervals, symbols, 
 
         final[i.upper()].indicators = combain_dict
 
-    print(final["BINANCE:SOLUSDT"].indicators)
     return final
-
-
-get_multiple_analysis_with_multiple_intervals(screener="crypto",
-                                              intervals=[Interval.INTERVAL_1_DAY, Interval.INTERVAL_1_HOUR],
-                                              symbols=["BINANCE:SOLUSDT"])

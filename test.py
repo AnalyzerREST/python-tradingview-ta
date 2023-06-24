@@ -1,5 +1,5 @@
 from colorama import Fore, Style
-from tradingview_ta import TA_Handler, Interval, get_multiple_analysis
+from tradingview_ta import TA_Handler, Interval, get_multiple_analysis, get_multiple_analysis_with_multiple_intervals
 import tradingview_ta, requests, argparse
 
 arg_parser = argparse.ArgumentParser()
@@ -152,6 +152,29 @@ try:
 except Exception as e:
     print("{}#6{} Get indicators test {}failed{}. An exception occured: {}".format(Fore.BLUE, Style.RESET_ALL, Fore.RED, Style.RESET_ALL, e))
 
+try:
+    analysis = get_multiple_analysis_with_multiple_intervals(screener="crypto",
+                                                             intervals=[Interval.INTERVAL_1_DAY,
+                                                                        Interval.INTERVAL_1_HOUR],
+                                                             symbols=["BINANCE:SOLUSDT", "BINANCE:BTCUSDT"])
+    for key, value in analysis.items():
+        print(
+            "{}#7{} Please compare with {}https://www.tradingview.com/symbols/{}/technicals/{}. (Switch to 1 hour tab)".format(
+                Fore.BLUE, Style.RESET_ALL, Fore.LIGHTMAGENTA_EX, key, Style.RESET_ALL))
+        print("{}#7{} (Summary) Rec: {}, Sell: {}, Neutral: {}, Buy: {}".format(Fore.BLUE, Style.RESET_ALL,
+                                                                                value.summary["RECOMMENDATION"],
+                                                                                value.summary["SELL"],
+                                                                                value.summary["NEUTRAL"],
+                                                                                value.summary["BUY"]))
+    if input("{}#7{} Are the results the same? (Y/N) ".format(Fore.BLUE, Style.RESET_ALL)).lower() == "y":
+        print("{}#7{} Multiple analysis test {}success{}.".format(Fore.BLUE, Style.RESET_ALL, Fore.GREEN,
+                                                                  Style.RESET_ALL))
+        success += 1
+    else:
+        print("{}#7{} Multiple analysis test {}failed{}".format(Fore.BLUE, Style.RESET_ALL, Fore.RED, Style.RESET_ALL))
+except Exception as e:
+    print("{}#7{} Multiple analysis test {}failed{}. An exception occured: {}".format(Fore.BLUE, Style.RESET_ALL,
+                                                                                      Fore.RED, Style.RESET_ALL, e))
 
 print("------------------------------------------------")
 print("Test finished. Result: {}{}/{}{}.".format(Fore.LIGHTWHITE_EX, success, COUNT, Style.RESET_ALL))
