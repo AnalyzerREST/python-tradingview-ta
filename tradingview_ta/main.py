@@ -604,7 +604,6 @@ def get_multiple_analysis_with_multiple_intervals(screener, intervals, symbols, 
         scan_url, json=data, headers=headers, timeout=timeout, proxies=proxies)
 
     result = json.loads(response.text)["data"]
-    print(result)
     final = {}
 
     for analysis in result:
@@ -622,39 +621,62 @@ def get_multiple_analysis_with_multiple_intervals(screener, intervals, symbols, 
         if symbol.upper() not in final:
             final[symbol.upper()] = None
 
+    combain_dict = {}
     for i in symbols:
-        dict_1m = {key[:-2]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|1')}
-        dict_5m = {key[:-2]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|5')}
-        dict_15m = {key[:-3]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|15')}
-        dict_30m = {key[:-3]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|30')}
-        dict_1h = {key[:-3]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|60')}
-        dict_2h = {key[:-4]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|120')}
-        dict_4h = {key[:-4]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|240')}
-        dict_1W = {key[:-2]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|1W')}
-        dict_1M = {key[:-2]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|1M')}
-        dict_1D = {key: value for key, value in final[i.upper()].indicators.items() if '|' not in key}
+        if Interval.INTERVAL_1_MINUTE in intervals:
+            dict_1m = {key.split("|")[0]: value for key, value in final[i.upper()].indicators.items() if
+                       key.endswith('|1')}
+            combain_dict[Interval.INTERVAL_1_MINUTE] = dict_1m
+
+        if Interval.INTERVAL_5_MINUTES in intervals:
+            dict_5m = {key.split("|")[0]: value for key, value in final[i.upper()].indicators.items() if
+                       key.endswith('|5')}
+            combain_dict[Interval.INTERVAL_5_MINUTES] = dict_5m
+
+        if Interval.INTERVAL_15_MINUTES in intervals:
+            dict_15m = {key.split("|")[0]: value for key, value in final[i.upper()].indicators.items() if
+                        key.endswith('|15')}
+            combain_dict[Interval.INTERVAL_15_MINUTES] = dict_15m
+
+        if Interval.INTERVAL_30_MINUTES in intervals:
+            dict_30m = {key.split("|")[0]: value for key, value in final[i.upper()].indicators.items() if
+                        key.endswith('|30')}
+            combain_dict[Interval.INTERVAL_30_MINUTES] = dict_30m
+
+        if Interval.INTERVAL_1_HOUR in intervals:
+            dict_1h = {key.split("|")[0]: value for key, value in final[i.upper()].indicators.items() if
+                       key.endswith('|60')}
+            combain_dict[Interval.INTERVAL_1_HOUR] = dict_1h
+
+        if Interval.INTERVAL_2_HOURS in intervals:
+            dict_2h = {key.split("|")[0]: value for key, value in final[i.upper()].indicators.items() if
+                       key.endswith('|120')}
+            combain_dict[Interval.INTERVAL_2_HOURS] = dict_2h
+
+        if Interval.INTERVAL_4_HOURS in intervals:
+            dict_4h = {key.split("|")[0]: value for key, value in final[i.upper()].indicators.items() if
+                       key.endswith('|240')}
+            combain_dict[Interval.INTERVAL_4_HOURS] = dict_4h
+
+        if Interval.INTERVAL_1_WEEK in intervals:
+            dict_1W = {key.split("|")[0]: value for key, value in final[i.upper()].indicators.items() if
+                       key.endswith('|1W')}
+            combain_dict[Interval.INTERVAL_1_WEEK] = dict_1W
+
+        if Interval.INTERVAL_1_MONTH in intervals:
+            dict_1M = {key.split("|")[0]: value for key, value in final[i.upper()].indicators.items() if
+                       key.endswith('|1M')}
+            combain_dict[Interval.INTERVAL_1_MONTH] = dict_1M
+
+        if Interval.INTERVAL_1_DAY in intervals:
+            dict_1D = {key.split("|")[0]: value for key, value in final[i.upper()].indicators.items() if '|' not in key}
+            combain_dict[Interval.INTERVAL_1_DAY] = dict_1D
+
+        final[i.upper()].indicators = combain_dict
+
+    return final
 
 
-        final[i.upper()].indicators = {
-            "1m": dict_1m,
-            "5m": dict_5m,
-            "15m": dict_15m,
-            "30m": dict_30m,
-            "1h": dict_1h,
-            "2h": dict_2h,
-            "4h": dict_4h,
-            "1W": dict_1W,
-            "1M": dict_1M,
-            "1d": dict_1D,
-        }
-
-        print(final[i.upper()].indicators)
-
-    # return final
-
-
-# new_dict = {key: value for key, value in final["BINANCE:BTCUSDT"].indicators.items() if key.endswith('|1')}
-# print(new_dict)
-# print(interval)
-get_multiple_analysis_with_multiple_intervals(screener="crypto", intervals=["1d"],
+get_multiple_analysis_with_multiple_intervals(screener="crypto",
+                                              intervals=[Interval.INTERVAL_1_DAY],
                                               symbols=["BINANCE:SOLUSDT"])
