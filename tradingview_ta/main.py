@@ -531,6 +531,42 @@ def get_multiple_analysis(screener, interval, symbols, additional_indicators=[],
     return final
 
 
+def get_end_with(interval):
+    if interval == "1m":
+        # 1 Minute
+        return "|1"
+    elif interval == "5m":
+        # 5 Minutes
+        return "|5"
+    elif interval == "15m":
+        # 15 Minutes
+        return "|15"
+    elif interval == "30m":
+        # 30 Minutes
+        return "|30"
+    elif interval == "1h":
+        # 1 Hour
+        return "|60"
+    elif interval == "2h":
+        # 2 Hours
+        return "|120"
+    elif interval == "4h":
+        # 4 Hour
+        return "|240"
+    elif interval == "1W":
+        # 1 Week
+        return "|1W"
+    elif interval == "1M":
+        # 1 Month
+        return "|1M"
+    else:
+        if interval != '1d':
+            warnings.warn(
+                "Interval is empty or not valid, defaulting to 1 day.")
+        # Default, 1 Day
+        return "|1D"
+
+
 def get_multiple_analysis_with_multiple_intervals(screener, intervals, symbols, additional_indicators=[], timeout=None,
                                                   proxies=None):
     """Retrieve multiple technical analysis at once. Note: You can't mix different screener and interval
@@ -561,28 +597,58 @@ def get_multiple_analysis_with_multiple_intervals(screener, intervals, symbols, 
         indicators_key += additional_indicators
 
     data = TradingView.data_multi_intervals(symbols, intervals, indicators_key)
-    # scan_url = f"{TradingView.scan_url}{screener.lower()}/scan"
-    # headers = {"User-Agent": "tradingview_ta/{}".format(__version__)}
-    # response = requests.post(
-    #     scan_url, json=data, headers=headers, timeout=timeout, proxies=proxies)
-    #
-    # result = json.loads(response.text)["data"]
-    # final = {}
-    #
-    # for analysis in result:
-    #     # Convert list to dict
-    #     indicators = {}
-    #     for x in range(len(analysis["d"])):
-    #         indicators[indicators_key[x]] = analysis["d"][x]
-    #
-    #     final[analysis["s"]] = calculate(indicators=indicators, indicators_key=indicators_key, screener=screener,
-    #                                      symbol=analysis["s"].split(
-    #                                          ":")[1], exchange=analysis["s"].split(":")[0], interval=intervals)
-    #
-    # for symbol in symbols:
-    #     # Add None if there is no analysis for symbol
-    #     if symbol.upper() not in final:
-    #         final[symbol.upper()] = None
+    indicators_key = data["columns"]
+    scan_url = f"{TradingView.scan_url}{screener.lower()}/scan"
+    headers = {"User-Agent": "tradingview_ta/{}".format(__version__)}
+    response = requests.post(
+        scan_url, json=data, headers=headers, timeout=timeout, proxies=proxies)
+
+    result = json.loads(response.text)["data"]
+    print(result)
+    final = {}
+
+    for analysis in result:
+        # Convert list to dict
+        indicators = {}
+        for x in range(len(analysis["d"])):
+            indicators[indicators_key[x]] = analysis["d"][x]
+
+        final[analysis["s"]] = calculate(indicators=indicators, indicators_key=indicators_key, screener=screener,
+                                         symbol=analysis["s"].split(
+                                             ":")[1], exchange=analysis["s"].split(":")[0], interval=intervals)
+
+    for symbol in symbols:
+        # Add None if there is no analysis for symbol
+        if symbol.upper() not in final:
+            final[symbol.upper()] = None
+
+    for i in symbols:
+        dict_1m = {key[:-2]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|1')}
+        dict_5m = {key[:-2]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|5')}
+        dict_15m = {key[:-3]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|15')}
+        dict_30m = {key[:-3]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|30')}
+        dict_1h = {key[:-3]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|60')}
+        dict_2h = {key[:-4]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|120')}
+        dict_4h = {key[:-4]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|240')}
+        dict_1W = {key[:-2]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|1W')}
+        dict_1M = {key[:-2]: value for key, value in final[i.upper()].indicators.items() if key.endswith('|1M')}
+        dict_1D = {key: value for key, value in final[i.upper()].indicators.items() if '|' not in key}
+
+
+        final[i.upper()].indicators = {
+            "1m": dict_1m,
+            "5m": dict_5m,
+            "15m": dict_15m,
+            "30m": dict_30m,
+            "1h": dict_1h,
+            "2h": dict_2h,
+            "4h": dict_4h,
+            "1W": dict_1W,
+            "1M": dict_1M,
+            "1d": dict_1D,
+        }
+
+        print(final[i.upper()].indicators)
 
     # return final
 
@@ -590,4 +656,5 @@ def get_multiple_analysis_with_multiple_intervals(screener, intervals, symbols, 
 # new_dict = {key: value for key, value in final["BINANCE:BTCUSDT"].indicators.items() if key.endswith('|1')}
 # print(new_dict)
 # print(interval)
-get_multiple_analysis_with_multiple_intervals(screener="crypto", intervals=["1m", "5m"], symbols=["BINANCE:BTCUSDT"])
+get_multiple_analysis_with_multiple_intervals(screener="crypto", intervals=["1d"],
+                                              symbols=["BINANCE:SOLUSDT"])
