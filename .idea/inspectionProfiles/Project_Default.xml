@@ -1,0 +1,82 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyChainedComparisonsInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoreConstantInTheMiddle" value="true" />
+    </inspection_tool>
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="10">
+            <item index="0" class="java.lang.String" itemvalue="pandas" />
+            <item index="1" class="java.lang.String" itemvalue="google-cloud-storage" />
+            <item index="2" class="java.lang.String" itemvalue="numpy" />
+            <item index="3" class="java.lang.String" itemvalue="requests" />
+            <item index="4" class="java.lang.String" itemvalue="google-cloud-firestore" />
+            <item index="5" class="java.lang.String" itemvalue="google-api-core" />
+            <item index="6" class="java.lang.String" itemvalue="websockets" />
+            <item index="7" class="java.lang.String" itemvalue="binance.py" />
+            <item index="8" class="java.lang.String" itemvalue="ccxt" />
+            <item index="9" class="java.lang.String" itemvalue="google-api-python-client" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E303" />
+          <option value="E305" />
+          <option value="E501" />
+          <option value="E722" />
+          <option value="E125" />
+          <option value="E701" />
+          <option value="E129" />
+          <option value="E266" />
+          <option value="E127" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N802" />
+          <option value="N806" />
+          <option value="N803" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyShadowingBuiltinsInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredNames">
+        <list>
+          <option value="id" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyStubPackagesAdvertiser" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="PyQt5-stubs==5.15.6.0" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="const.currency" />
+          <option value="strategies_bot.buySignal" />
+          <option value="str.decode" />
+          <option value="main.datetime" />
+          <option value="dict.get_analysis" />
+          <option value="lib.strategy.volume_strategy.volume_strategy.getFromBinance" />
+          <option value="bool.shift" />
+          <option value="bool.astype" />
+          <option value="main.allWIN" />
+          <option value="ta.momentum" />
+          <option value="ta.trend" />
+          <option value="ta.volatility" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
