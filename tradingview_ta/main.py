@@ -42,7 +42,6 @@ class Exchange:
 
 
 class TradingView:
-    # Note: Please DO NOT modify the order or DELETE existing indicators, it will break the technical analysis. You may APPEND custom indicator to the END of the list.
     indicators = ["Recommend.Other", "Recommend.All", "Recommend.MA", "RSI", "RSI[1]", "Stoch.K", "Stoch.D", "Stoch.K[1]", "Stoch.D[1]", "CCI20", "CCI20[1]", "ADX", "ADX+DI", "ADX-DI", "ADX+DI[1]", "ADX-DI[1]", "AO", "AO[1]", "Mom", "Mom[1]", "MACD.macd", "MACD.signal", "Rec.Stoch.RSI", "Stoch.RSI.K", "Rec.WR", "W.R", "Rec.BBPower", "BBPower", "Rec.UO", "UO", "close", "EMA5", "SMA5", "EMA10", "SMA10", "EMA20", "SMA20", "EMA30", "SMA30", "EMA50", "SMA50", "EMA100", "SMA100", "EMA200", "SMA200", "Rec.Ichimoku", "Ichimoku.BLine", "Rec.VWMA", "VWMA", "Rec.HullMA9", "HullMA9", "Pivot.M.Classic.S3", "Pivot.M.Classic.S2", "Pivot.M.Classic.S1", "Pivot.M.Classic.Middle", "Pivot.M.Classic.R1",
                   "Pivot.M.Classic.R2", "Pivot.M.Classic.R3", "Pivot.M.Fibonacci.S3", "Pivot.M.Fibonacci.S2", "Pivot.M.Fibonacci.S1", "Pivot.M.Fibonacci.Middle", "Pivot.M.Fibonacci.R1", "Pivot.M.Fibonacci.R2", "Pivot.M.Fibonacci.R3", "Pivot.M.Camarilla.S3", "Pivot.M.Camarilla.S2", "Pivot.M.Camarilla.S1", "Pivot.M.Camarilla.Middle", "Pivot.M.Camarilla.R1", "Pivot.M.Camarilla.R2", "Pivot.M.Camarilla.R3", "Pivot.M.Woodie.S3", "Pivot.M.Woodie.S2", "Pivot.M.Woodie.S1", "Pivot.M.Woodie.Middle", "Pivot.M.Woodie.R1", "Pivot.M.Woodie.R2", "Pivot.M.Woodie.R3", "Pivot.M.Demark.S1", "Pivot.M.Demark.Middle", "Pivot.M.Demark.R1", "open", "P.SAR", "BB.lower", "BB.upper", "AO[2]", "volume", "change", "low", "high"]
 
@@ -54,6 +53,7 @@ class TradingView:
         Args:
             symbols (list): List of EXCHANGE:SYMBOL (ex: ["NASDAQ:AAPL"] or ["BINANCE:BTCUSDT"])
             interval (string): Time Interval (ex: 1m, 5m, 15m, 1h, 4h, 1d, 1W, 1M)
+            indicators (dict): A dictionary of indicators used for technical analysis.
 
         Returns:
             string: JSON object as a string.
@@ -122,97 +122,91 @@ class TradingView:
         return res
 
 
-def calculate(indicators, indicators_key, screener, symbol, exchange, interval):
+def calculate(indicators, screener, symbol, exchange, interval):
     oscillators_counter, ma_counter = {"BUY": 0, "SELL": 0, "NEUTRAL": 0}, {
         "BUY": 0, "SELL": 0, "NEUTRAL": 0}
     computed_oscillators, computed_ma = {}, {}
 
-    indicators = list(indicators.values())
-
     # RECOMMENDATIONS
-    if None not in indicators[0:2]:
-        recommend_oscillators = Compute.Recommend(indicators[0])
-        recommend_summary = Compute.Recommend(indicators[1])
-        recommend_moving_averages = Compute.Recommend(indicators[2])
+    if None not in [indicators.get(key) for key in ['Recommend.Other', 'Recommend.All', 'Recommend.MA']]:
+        recommend_oscillators = Compute.Recommend(indicators['Recommend.Other'])
+        recommend_summary = Compute.Recommend(indicators['Recommend.All'])
+        recommend_moving_averages = Compute.Recommend(indicators['Recommend.MA'])
     else:
         return None
 
     # OSCILLATORS
     # RSI (14)
-    if None not in indicators[3:5]:
-        computed_oscillators["RSI"] = Compute.RSI(indicators[3], indicators[4])
+    if None not in [indicators.get(key) for key in ['RSI', 'RSI[1]']]:
+        computed_oscillators["RSI"] = Compute.RSI(indicators['RSI'], indicators['RSI[1]'])
         oscillators_counter[computed_oscillators["RSI"]] += 1
     # Stoch %K
-    if None not in indicators[5:9]:
+    if None not in [indicators.get(key) for key in ['Stoch.K', 'Stoch.D', 'Stoch.K[1]', 'Stoch.D[1]']]:
         computed_oscillators["STOCH.K"] = Compute.Stoch(
-            indicators[5], indicators[6], indicators[7], indicators[8])
+            indicators['Stoch.K'], indicators['Stoch.D'], indicators['Stoch.K[1]'], indicators['Stoch.D[1]'])
         oscillators_counter[computed_oscillators["STOCH.K"]] += 1
     # CCI (20)
-    if None not in indicators[9:11]:
+    if None not in [indicators.get(key) for key in ['CCI20', 'CCI20[1]']]:
         computed_oscillators["CCI"] = Compute.CCI20(
-            indicators[9], indicators[10])
+            indicators['CCI20'], indicators['CCI20[1]'])
         oscillators_counter[computed_oscillators["CCI"]] += 1
     # ADX (14)
-    if None not in indicators[11:16]:
+    if None not in [indicators.get(key) for key in ['ADX', 'ADX+DI', 'ADX-DI', 'ADX+DI[1]', 'ADX-DI[1]']]:
         computed_oscillators["ADX"] = Compute.ADX(
-            indicators[11], indicators[12], indicators[13], indicators[14], indicators[15])
+            indicators['ADX'], indicators['ADX+DI'], indicators['ADX-DI'], indicators['ADX+DI[1]'], indicators['ADX-DI[1]'])
         oscillators_counter[computed_oscillators["ADX"]] += 1
     # AO
-    if None not in indicators[16:18] and indicators[86] != None:
+    if None not in [indicators.get(key) for key in ['AO', 'AO[1]', 'AO[2]']]:
         computed_oscillators["AO"] = Compute.AO(
-            indicators[16], indicators[17], indicators[86])
+            indicators['AO'], indicators['AO[1]'], indicators['AO[2]'])
         oscillators_counter[computed_oscillators["AO"]] += 1
     # Mom (10)
-    if None not in indicators[18:20]:
+    if None not in [indicators.get(key) for key in ['Mom', 'Mom[1]']]:
         computed_oscillators["Mom"] = Compute.Mom(
-            indicators[18], indicators[19])
+            indicators['Mom'], indicators['Mom[1]'])
         oscillators_counter[computed_oscillators["Mom"]] += 1
     # MACD
-    if None not in indicators[20:22]:
+    if None not in [indicators.get(key) for key in ['MACD.macd', 'MACD.signal']]:
         computed_oscillators["MACD"] = Compute.MACD(
-            indicators[20], indicators[21])
+            indicators['MACD.macd'], indicators['MACD.signal'])
         oscillators_counter[computed_oscillators["MACD"]] += 1
     # Stoch RSI
-    if indicators[22] != None:
-        computed_oscillators["Stoch.RSI"] = Compute.Simple(indicators[22])
+    if indicators.get('Rec.Stoch.RSI') is not None:
+        computed_oscillators["Stoch.RSI"] = Compute.Simple(indicators['Rec.Stoch.RSI'])
         oscillators_counter[computed_oscillators["Stoch.RSI"]] += 1
     # W%R
-    if indicators[24] != None:
-        computed_oscillators["W%R"] = Compute.Simple(indicators[24])
+    if indicators.get('Rec.WR') is not None:
+        computed_oscillators["W%R"] = Compute.Simple(indicators['Rec.WR'])
         oscillators_counter[computed_oscillators["W%R"]] += 1
     # BBP
-    if indicators[26] != None:
-        computed_oscillators["BBP"] = Compute.Simple(indicators[26])
+    if indicators.get('Rec.BBPower') is not None:
+        computed_oscillators["BBP"] = Compute.Simple(indicators['Rec.BBPower'])
         oscillators_counter[computed_oscillators["BBP"]] += 1
     # UO
-    if indicators[28] != None:
-        computed_oscillators["UO"] = Compute.Simple(indicators[28])
+    if indicators.get('Rec.UO') is not None:
+        computed_oscillators["UO"] = Compute.Simple(indicators['Rec.UO'])
         oscillators_counter[computed_oscillators["UO"]] += 1
 
     # MOVING AVERAGES
     ma_list = ["EMA10", "SMA10", "EMA20", "SMA20", "EMA30", "SMA30",
                "EMA50", "SMA50", "EMA100", "SMA100", "EMA200", "SMA200"]
-    close = indicators[30]
-    ma_list_counter = 0
-    for index in range(33, 45):
-        if indicators[index] != None:
-            computed_ma[ma_list[ma_list_counter]] = Compute.MA(
-                indicators[index], close)
-            ma_counter[computed_ma[ma_list[ma_list_counter]]] += 1
-            ma_list_counter += 1
+    close = indicators['close']
+    for item in ma_list:
+        computed_ma[item] = Compute.MA(indicators[item], close)
+        ma_counter[computed_ma[item]] += 1
 
     # MOVING AVERAGES, pt 2
     # ICHIMOKU
-    if indicators[45] != None:
-        computed_ma["Ichimoku"] = Compute.Simple(indicators[45])
+    if indicators.get('Rec.Ichimoku') is not None:
+        computed_ma["Ichimoku"] = Compute.Simple(indicators['Rec.Ichimoku'])
         ma_counter[computed_ma["Ichimoku"]] += 1
     # VWMA
-    if indicators[47] != None:
-        computed_ma["VWMA"] = Compute.Simple(indicators[47])
+    if indicators.get('Rec.VWMA') is not None:
+        computed_ma["VWMA"] = Compute.Simple(indicators['Rec.VWMA'])
         ma_counter[computed_ma["VWMA"]] += 1
     # HullMA (9)
-    if indicators[49] != None:
-        computed_ma["HullMA"] = Compute.Simple(indicators[49])
+    if indicators.get('Rec.HullMA9') is not None:
+        computed_ma["HullMA"] = Compute.Simple(indicators['Rec.HullMA9'])
         ma_counter[computed_ma["HullMA"]] += 1
 
     analysis = Analysis()
@@ -222,10 +216,7 @@ def calculate(indicators, indicators_key, screener, symbol, exchange, interval):
     analysis.interval = interval
     analysis.time = datetime.datetime.now()
 
-    for x in range(len(indicators)):
-        analysis.indicators[indicators_key[x]] = indicators[x]
-
-    analysis.indicators = analysis.indicators.copy()
+    analysis.indicators = indicators.copy()
 
     analysis.oscillators = {"RECOMMENDATION": recommend_oscillators,
                             "BUY": oscillators_counter["BUY"], "SELL": oscillators_counter["SELL"], "NEUTRAL": oscillators_counter["NEUTRAL"], "COMPUTE": computed_oscillators}
@@ -384,7 +375,7 @@ class TA_Handler(object):
             Analysis: Contains information about the analysis.
         """
 
-        return calculate(indicators=self.get_indicators(), indicators_key=self.indicators, screener=self.screener, symbol=self.symbol, exchange=self.exchange, interval=self.interval)
+        return calculate(indicators=self.get_indicators(self.indicators), screener=self.screener, symbol=self.symbol, exchange=self.exchange, interval=self.interval)
 
 
 def get_multiple_analysis(screener, interval, symbols, additional_indicators=[], timeout=None, proxies=None):
@@ -430,7 +421,7 @@ def get_multiple_analysis(screener, interval, symbols, additional_indicators=[],
         for x in range(len(analysis["d"])):
             indicators[indicators_key[x]] = analysis["d"][x]
 
-        final[analysis["s"]] = calculate(indicators=indicators, indicators_key=indicators_key, screener=screener, symbol=analysis["s"].split(
+        final[analysis["s"]] = calculate(indicators=indicators, screener=screener, symbol=analysis["s"].split(
             ":")[1], exchange=analysis["s"].split(":")[0], interval=interval)
 
     for symbol in symbols:
